@@ -517,6 +517,7 @@ a.btn.disabled {
 .check-group {
   display: inline-block;
   vertical-align: middle;
+  padding-bottom: 1px;
 }
 .check-group input {
   display: none;
@@ -526,7 +527,7 @@ a.btn.disabled {
   padding: 2px 5px;
   text-align: center;
   float: left;
-  margin-right: 1px;
+  margin: 1px 1px 0 0;
   cursor: pointer;
 }
 .check-group label.checked {

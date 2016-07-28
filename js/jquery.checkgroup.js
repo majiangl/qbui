@@ -1,67 +1,152 @@
 (function($) {
-    var CheckGroup = function(el) {
+    var CheckGroup = function(options, el) {
         this.$el = $(el);
+        $.extend(this.options, options);
         this.init();
     };
 
     CheckGroup.prototype = {
         constructor: CheckGroup,
 
-        checkedClass: 'checked',
+        options: {
+            preventEmpty: false,
+            selectMode: 'os',
+            checkedClass: 'checked'
+        },
 
         init: function() {
-            var type = this.$el.find('input').click($.proxy(this, '_onInputChange')).prop('type');
-            this.multiple = type == 'checkbox' ? true : false;
+            this.$el.on('click', 'input', $.proxy(this, '_onInputChange'));
         },
 
         _onInputChange: function(evt) {
-            this.multiple ? this._updateCheckboxLabel(evt) : this._updateRadioLabel(evt);
+            var $input = $(evt.target); 
+            this.select({
+                event: evt,
+                $input: $input,
+                $label: $input.parent(),
+                checked: !evt.target.checked,
+                ctrlKey: evt.ctrlKey,
+                shiftKey: evt.shiftKey
+            });
+        },
+        
+        _normalizeCmd: function(cmd) {
+            var option = cmd.option;
+            
+            if(option == undefined || option == null) return;
+            
+            if(typeof option === 'number') {
+                cmd.$label = this.$el.children().eq(option);
+                cmd.$input = cmd.$label.find('input');
+            } else {
+                cmd.$input = this.$el.find('input[value='+option+']').eq(0);
+                cmd.$label = cmd.$input.parent();
+            }
+            
+            cmd.checked = cmd.$input.prop('checked');
+        },
+        
+        select: function(cmd) {
+            var selectMode = this.options.selectMode;
+            
+            this._normalizeCmd(cmd);
+            
+            selectMode === 'os'     ?   this._selectOS(cmd) :
+            selectMode === 'single' ?   this._selectSingle(cmd) :
+                                        this._selectMulti(cmd);
         },
 
-        _updateCheckboxLabel: function(evt) {
-            var $label = $(evt.currentTarget).parent();
-            var checked = evt.currentTarget.checked;
-            var checkedClass = this.checkedClass;
-
-            if (checked) {
-                if ($label.attr('data-all')!==undefined) {
-                    this.set($label.siblings(), false);
-                } else {
-                    this.set($label.siblings('[data-all]'), false);
+        _selectSingle: function(cmd) {
+            if(cmd.checked) {
+                if(this.options.preventEmpty){
+                    cmd.event && cmd.event.preventDefault();
+                    return;
                 }
-                $label.addClass(checkedClass);
+                this._set(cmd.$label, false);
             } else {
-                var $siblings = $label.siblings();
-                if ($siblings.hasClass(checkedClass) == false) {
-                    if ($label.attr('data-all')!==undefined) {
-                        evt.preventDefault();
+                this._set(cmd.$label, true);
+                this._set(cmd.$label.siblings(), false);
+            }
+            
+            if(!cmd.event)cmd.$input.change();
+        },
+        
+        _selectMulti: function(cmd) {
+            if(cmd.checked) {
+                if(this.options.preventEmpty) {
+                    var notEmpty = cmd.$label.siblings().hasClass(this.options.checkedClass);
+                    if(!notEmpty) {
+                        cmd.event && cmd.event.preventDefault();
                         return;
-                    } else {
-                        this.set($siblings.filter('[data-all]').eq(0), true);
                     }
                 }
-                $label.removeClass(checkedClass);
+                this._set(cmd.$label, false);
+            }
+            else {
+                this._set(cmd.$label, true);
+                if(cmd.$label.attr('data-checkgroup-all') != undefined) {
+                    this._set(cmd.$label.siblings(), false);
+                }
+                else {
+                    this._set(cmd.$label.siblings('[data-checkgroup-all]'), false);
+                }
+            }
+            if(!cmd.event)cmd.$input.change();
+        },
+        
+        _selectOS: function(cmd) {
+            if(!cmd.shiftKey && !cmd.ctrlKey) {
+                this._selectSingle(cmd);
+                this._shiftBase = cmd.$label;
+            }
+            else if(cmd.ctrlKey) {
+                this._selectMulti(cmd);
+                this._shiftBase = cmd.$label;
             }
         },
 
-        _updateRadioLabel: function(evt) {
-            var $label = $(evt.currentTarget).parent();
-            var checkedClass = this.checkedClass;
-            $label.addClass(checkedClass).siblings().removeClass(checkedClass);
-        },
-
-        set: function($label, checked) {
-            $label.toggleClass(this.checkedClass, checked);
+        _set: function($label, checked) {
+            $label.toggleClass(this.options.checkedClass, checked);
             $label.find('input').prop('checked', checked);
         }
     };
 
-    $.fn.checkgroup = function() {
-        return this.each(function() {
-            var inst = $.data(this, 'checkgroup');
-            if (!inst) {
-                $.data(this, 'checkgroup', new CheckGroup(this));
-            }
-        });
+    $.fn.checkgroup = function(options) {
+        var retValue = this;
+        
+        if(typeof options === 'string') {
+            var args = Array.prototype.slice.call(arguments, 1);
+            
+            this.each(function(){
+                var methodValue;
+                var inst = $.data(this, 'checkgroup');
+                if(!inst) {
+                    throw new Error("cannot call method " + options +
+                        " prior to initialization.");
+                }
+                if(options === 'options'){
+                    retValue = $.extend(true, {}, inst.options);
+                    return false;
+                } else {
+                    methodValue = inst[options].apply(inst, args);
+                    if(methodValue && methodValue!= inst) {
+                        retValue = methodValue;
+                        return false;
+                    }
+                }
+            });
+            
+        } else {
+            this.each(function() {
+                var inst = $.data(this, 'checkgroup');
+                if (!inst) {
+                    $.data(this, 'checkgroup', new CheckGroup(options, this));
+                }
+            });
+        }
+        
+        return retValue;
     };
+    
+    $.fn.checkgroup.defaults = CheckGroup.prototype.options;
 }(jQuery));

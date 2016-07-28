@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../dist/css/qb.css">
     <link rel="stylesheet" href="css/index.css">
     <script src="js/lib/jquery.min.js"></script>
-    <script src="../dist/js/qb.min.js"></script>
+    <script src="../dist/js/qb.js"></script>
     <script>
     $(function() {
         $('#datepicker').datepicker({
@@ -158,8 +158,8 @@
     
     <p>Check Group:</p>
     <div class="examples">
-        <div id="checkGroup" class="check-group">
-            <label class="checked" data-all>
+        <div id="checkGroup" class="check-group" onchange="console.log(1)">
+            <label class="checked" data-checkgroup-all>
                 <input type="checkbox" name="options" value="all" checked>全部
             </label>
             <label>
