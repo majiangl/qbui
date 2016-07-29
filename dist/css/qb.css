@@ -831,7 +831,6 @@ a.btn.disabled {
 }
 .dataTables_paginate .paginate_button {
   display: inline-block;
-  overflow: hidden;
   cursor: pointer;
   text-align: center;
   color: #ffebc8;
@@ -1006,10 +1005,14 @@ a.btn.disabled {
 .chosen-container-single .chosen-search input {
   width: 100%;
 }
-/*! jQuery UI - v1.12.0 - 2016-07-19
+/*! jQuery UI - v1.12.0 - 2016-07-29
 * http://jqueryui.com
-* Includes: core.css, autocomplete.css, menu.css
+* Includes: sortable.css, core.css, autocomplete.css, menu.css
 * Copyright jQuery Foundation and other contributors; Licensed MIT */
+.ui-sortable-handle {
+  -ms-touch-action: none;
+  touch-action: none;
+}
 /* Layout helpers
 ----------------------------------*/
 .ui-helper-hidden {

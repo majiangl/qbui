@@ -1,7 +1,7 @@
 (function($) {
     var CheckGroup = function(options, el) {
         this.$el = $(el);
-        $.extend(this.options, options);
+        this.options = $.extend({}, this.options, options);
         this.init();
     };
 
@@ -9,7 +9,7 @@
         constructor: CheckGroup,
 
         options: {
-            preventEmpty: false,
+            preventEmpty: true,
             selectMode: 'os',
             checkedClass: 'checked'
         },
@@ -57,6 +57,7 @@
         },
 
         _selectSingle: function(cmd) {
+            this._set(cmd.$label.siblings(), false);
             if(cmd.checked) {
                 if(this.options.preventEmpty){
                     cmd.event && cmd.event.preventDefault();
@@ -65,7 +66,6 @@
                 this._set(cmd.$label, false);
             } else {
                 this._set(cmd.$label, true);
-                this._set(cmd.$label.siblings(), false);
             }
             
             if(!cmd.event)cmd.$input.change();
@@ -95,14 +95,7 @@
         },
         
         _selectOS: function(cmd) {
-            if(!cmd.shiftKey && !cmd.ctrlKey) {
-                this._selectSingle(cmd);
-                this._shiftBase = cmd.$label;
-            }
-            else if(cmd.ctrlKey) {
-                this._selectMulti(cmd);
-                this._shiftBase = cmd.$label;
-            }
+            cmd.ctrlKey ? this._selectMulti(cmd) : this._selectSingle(cmd);
         },
 
         _set: function($label, checked) {
@@ -124,15 +117,11 @@
                     throw new Error("cannot call method " + options +
                         " prior to initialization.");
                 }
-                if(options === 'options'){
-                    retValue = $.extend(true, {}, inst.options);
+
+                methodValue = inst[options].apply(inst, args);
+                if(methodValue && methodValue!= inst) {
+                    retValue = methodValue;
                     return false;
-                } else {
-                    methodValue = inst[options].apply(inst, args);
-                    if(methodValue && methodValue!= inst) {
-                        retValue = methodValue;
-                        return false;
-                    }
                 }
             });
             

@@ -13,3 +13,19 @@ body {
 #checks > label {
     margin-right: 20px;
 }
+
+#sortable {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+#sortable li {
+    width: 200px;
+    background-color: #040b0b;
+    border: 1px solid #5f5f5f;
+    margin: 10px 0;
+    padding: 4px 10px;
+    cursor: move;
+    height: 30px;
+}

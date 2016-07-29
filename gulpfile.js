@@ -26,7 +26,9 @@ var jsPlugins = [
         'js/icheck.js',
         'js/jquery.checkgroup.js',
         'js/jquery.qtip.js',
-        'js/jquery.tab.js'
+        'js/jquery.tab.js',
+        'js/highstock.js',
+        'js/highstock.theme.js'
     ];
 gulp.task('js', function(){
     return gulp.src(jsPlugins)
