@@ -1,6 +1,6 @@
 /* Core
    ========================================================================== */
-   
+
 * {
     box-sizing: border-box;
 }
@@ -35,7 +35,16 @@ a {
     }
 }
 
+code,
+kbd,
+pre,
+samp {
+    font-family: @font-family-monospace;
+}
+
+
 /* scrollbar */
+
 ::-webkit-scrollbar {
     width: 9px;
     height: 9px;
@@ -63,13 +72,19 @@ a {
     }
 }
 
+
 /* button */
+
 .btn {
     display: inline-block;
     text-align: center;
     white-space: nowrap;
-    .control-size(@font-size-base;@line-height-base;@btn-padding-base-vertical;
-        @btn-padding-base-horizontal;@input-border-color;@border-radius-base);
+    .control-size(@font-size-base;
+    @line-height-base;
+    @btn-padding-base-vertical;
+    @btn-padding-base-horizontal;
+    @input-border-color;
+    @border-radius-base);
     color: @btn-text-color;
     background-color: @btn-bg;
     .user-select(none);
@@ -99,10 +114,16 @@ a {
     }
 }
 
+
 /* input */
+
 .text-input {
-    .control-size(@font-size-base;@line-height-base;@padding-base-vertical;
-        @padding-base-horizontal;@input-border-color;@border-radius-base);
+    .control-size(@font-size-base;
+    @line-height-base;
+    @padding-base-vertical;
+    @padding-base-horizontal;
+    @input-border-color;
+    @border-radius-base);
     background-color: @input-bg;
     color: @input-text-color;
     box-shadow: @input-box-shadow;
@@ -114,20 +135,22 @@ a {
         background-color: @input-disabled-bg;
         box-shadow: none;
     }
-    
     &.search {
-        .input-icon-left("../img/search.png"; 4px center);
+        .input-icon-left("../img/search.png";
+        4px center);
     }
-    
     &.date {
         color: @text-color;
         background-color: @date-input-bg;
-        .input-icon-right("../img/calendar.png"; top 2px right 2px);
+        .input-icon-right("../img/calendar.png";
+        top 2px right 2px);
         width: 130px;
     }
 }
 
+
 /* Tab Group */
+
 .tab-group {
     .list-unstyle();
     display: inline-block;
@@ -139,7 +162,6 @@ a {
         &:last-child {
             margin-right: 0;
         }
-        
         a {
             display: block;
             text-decoration: none;
@@ -156,6 +178,7 @@ a {
 
 
 /* check Group */
+
 .check-group {
     display: inline-block;
     vertical-align: middle;
@@ -176,4 +199,3 @@ a {
         }
     }
 }
-

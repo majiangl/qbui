@@ -384,6 +384,12 @@ a:hover {
 a:active {
   color: #36ceff;
 }
+code,
+kbd,
+pre,
+samp {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
 /* scrollbar */
 ::-webkit-scrollbar {
   width: 9px;
@@ -743,6 +749,11 @@ a.btn.disabled {
   vertical-align: middle;
   margin-bottom: 2px;
   margin-left: 4px;
+}
+.dataTables_scrollBody .dataTable thead .sorting::after,
+.dataTables_scrollBody .dataTable thead .sorting_asc::after,
+.dataTables_scrollBody .dataTable thead .sorting_desc::after {
+  content: none;
 }
 .dataTable thead .sorting_desc::after {
   display: inline-block;

@@ -1,749 +1,988 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>QB UI</title>
+    <title>qbui-doc</title>
     <link rel="stylesheet" href="../dist/css/qb.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/prettify.css">
     <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/prettify.js"></script>
     <script src="../dist/js/qb.js"></script>
-    <script>
-    $(function() {
-        $('#datepicker').datepicker({
-            language: "zh-CN",
-            autoclose: true,
-            todayHighlight: true,
-            daysOfWeekHighlighted: "0,6"
-        });
-        
-        $("#speed").chosen({
-            width: '200px',
-            disable_search_threshold: 10
-        });
-        
-        var availableTags = [
-          "ActionScript",
-          "AppleScript",
-          "Asp",
-          "BASIC",
-          "C",
-          "C++",
-          "Clojure",
-          "COBOL",
-          "ColdFusion",
-          "Erlang",
-          "Fortran",
-          "Groovy",
-          "Haskell",
-          "Java",
-          "JavaScript",
-          "Lisp",
-          "Perl",
-          "PHP",
-          "Python",
-          "Ruby",
-          "Scala",
-          "Scheme"
-        ];
-        $( "#tags" ).autocomplete({
-          source: availableTags,
-          autoFocus: true
-        });
-        
-        //$('#checks>label').check();
-        $('#checks input').iCheck();
-
-        $('#tabGroup').tab();
-
-        $('#checkGroup').checkgroup();
-        
-        $('#qtipText').qtip();
-        
-        $('#table').dataTable({
-            searching: false,
-            lengthChange: false,
-            info: false,
-            columnDefs: [{
-                targets: [0,1,2,3,4], className: 'dt-head-left dt-body-left'
-            },{
-                targets: [5], className: 'dt-head-right dt-body-right'
-            }],
-            language: {
-                paginate: {
-                    previous: '',
-                    next: ''
-                }
-            }
-        });
-        
-        $( "#sortable" ).sortable();
-        
-        $('#chart1').highcharts({
-            xAxis: {
-                categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
-            },
-            labels: {
-                items: [{
-                    html: 'Total fruit consumption',
-                    style: {
-                        left: '50px',
-                        top: '18px',
-                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
-                    }
-                }]
-            },
-            series: [{
-                type: 'column',
-                name: 'Jane',
-                data: [3, 2, 1, 3, 4]
-            }, {
-                type: 'column',
-                name: 'John',
-                data: [2, 3, 5, 7, 6]
-            }, {
-                type: 'column',
-                name: 'Joe',
-                data: [4, 3, 3, 9, 0]
-            }, {
-                type: 'spline',
-                name: 'Average',
-                data: [3, 2.67, 3, 6.33, 3.33],
-                marker: {
-                    lineWidth: 2,
-                    lineColor: Highcharts.getOptions().colors[3],
-                    fillColor: 'white'
-                }
-            }, {
-                type: 'pie',
-                name: 'Total consumption',
-                data: [{
-                    name: 'Jane',
-                    y: 13,
-                    color: Highcharts.getOptions().colors[0] // Jane's color
-                }, {
-                    name: 'John',
-                    y: 23,
-                    color: Highcharts.getOptions().colors[1] // John's color
-                }, {
-                    name: 'Joe',
-                    y: 19,
-                    color: Highcharts.getOptions().colors[2] // Joe's color
-                }],
-                center: [100, 80],
-                size: 100,
-                showInLegend: false,
-                dataLabels: {
-                    enabled: false
-                }
-            }]
-        });
-    });
-    </script>
+    <script src="js/index.js"></script>
 </head>
-
-<body>
-    <p>Text:</p>
-    <div class="examples">
-        <span>默认文字</span>
-        <a href="#">链接文字</a>
-    </div>
-    
-    <p>Button:</p>
-    <div class="examples">
-        <button type="button" class="btn">Button</button>
-        <a href="#" class="btn">Link</a>
-        <button type="button" class="btn" disabled>Disabled Button</button>
-        <a href="#" class="btn disabled">Link</a>
-    </div>
-    
-    <p>Input:</p>
-    <div class="examples">
-        <input type="text" class="text-input" value="文本框">
-        <input type="text" class="text-input" disabled value="disabled input">
-        <input type="text" class="text-input search" value="搜索">
-        <input type="text" class="text-input date" id="datepicker">
-    </div>
-    
-    <p>Select:</p>
-    <div class="examples">
-        <select name="speed" id="speed">
-            <option>Slower</option>
-            <option>Slow</option>
-            <option selected="selected">Medium</option>
-            <option>Fast</option>
-            <option>Faster</option>
-        </select>
-    </div>
-    
-    <p>Autocomplete:</p>
-    <div class="examples">
-        <input type="text" id="tags" class="text-input">
-    </div>
-    
-    <p>Checkbox/Radio:</p>
-    <div id="checks" class="examples">
-        <label>
-            <input type="checkbox" name="checkbox" value="true" checked> Checked
-        </label>
-        <label>
-            <input type="checkbox" name="checkbox" value="true"> Unchecked
-        </label>
-        <label>
-            <input type="checkbox" name="checkbox" value="true" disabled> Disabled
-        </label>
-        <label>
-            <input type="radio" name="radio" value="true" checked> Checked
-        </label>
-        <label>
-            <input type="radio" name="radio" value="true"> Unchecked
-        </label>
-        <label>
-            <input type="radio" name="radio" value="true" disabled> Disabled
-        </label>
-    </div>
-    
-    <p>Tab Group:</p>
-    <div class="examples">
-        <ul id="tabGroup" class="tab-group">
+<body onload="prettyPrint()">
+    <aside>
+        <a class="catalog-title" href="#button">Button</a>
+        <ul class="catalog-section">
             <li>
-                <a href="#tab1" class="active">未确认</a>
+                <a href="#buttonTags">可作为按钮使用的元素</a>
             </li>
             <li>
-                <a href="#tab2">已确认</a>
-            </li>
-            <li>
-                <a href="#tab3">已发布</a>
+                <a href="#buttonDisabled">禁用状态</a>
             </li>
         </ul>
-    </div>
-    
-    <p>Check Group:</p>
-    <div class="examples">
-        <div id="checkGroup" class="check-group">
-            <label class="checked" data-checkgroup-all>
-                <input type="checkbox" name="options" value="all" checked>全部
-            </label>
-            <label>
-                <input type="checkbox" name="options" value="o/n">O/N
-            </label>
-            <label>
-                <input type="checkbox" name="options" value="1w">1W
-            </label>
-            <label>
-                <input type="checkbox" name="options" value="2w">2W
-            </label>
-            <label>
-                <input type="checkbox" name="options" value="1m">1M
-            </label>
-            <label>
-                <input type="checkbox" name="options" value="2m">2M
-            </label>
-            <label>
-                <input type="checkbox" name="options" value="3m">3M
-            </label>
-            <label>
-                <input type="checkbox" name="options" value="6m">6M
-            </label>
-            <label>
-                <input type="checkbox" name="options" value="1y">≥1Y
-            </label>
-        </div>          
-    </div>
-    
-    <p>Tooltip:</p>
-    <div class="examples">
-        <span id="qtipText" title="I'm Tooltip!">Hover Me!</span>
-    </div>
-    
-    <p>Sortable:</p>
-    <div class="examples">
-        <ul id="sortable">
-            <li>Item 1</li>
-            <li>Item 2</li>
-            <li>Item 3</li>
-            <li>Item 4</li>
+        <a class="catalog-title" href="#input">Input</a>
+        <ul class="catalog-section">
+            <li>
+                <a href="#inputUsage">基本用法</a>
+            </li>
+            <li>
+                <a href="#inputWithIcon">带图标的输入框</a>
+            </li>
         </ul>
-    </div>
-    
-    <p>DataTable:</p>
-    <div class="examples">
-        <table id="table" class="hover" width="100%">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
-                    <td>$320,800</td>
-                </tr>
-                <tr>
-                    <td>Garrett Winters</td>
-                    <td>Accountant</td>
-                    <td>Tokyo</td>
-                    <td>63</td>
-                    <td>2011/07/25</td>
-                    <td>$170,750</td>
-                </tr>
-                <tr>
-                    <td>Ashton Cox</td>
-                    <td>Junior Technical Author</td>
-                    <td>San Francisco</td>
-                    <td>66</td>
-                    <td>2009/01/12</td>
-                    <td>$86,000</td>
-                </tr>
-                <tr>
-                    <td>Cedric Kelly</td>
-                    <td>Senior Javascript Developer</td>
-                    <td>Edinburgh</td>
-                    <td>22</td>
-                    <td>2012/03/29</td>
-                    <td>$433,060</td>
-                </tr>
-                <tr>
-                    <td>Airi Satou</td>
-                    <td>Accountant</td>
-                    <td>Tokyo</td>
-                    <td>33</td>
-                    <td>2008/11/28</td>
-                    <td>$162,700</td>
-                </tr>
-                <tr>
-                    <td>Brielle Williamson</td>
-                    <td>Integration Specialist</td>
-                    <td>New York</td>
-                    <td>61</td>
-                    <td>2012/12/02</td>
-                    <td>$372,000</td>
-                </tr>
-                <tr>
-                    <td>Herrod Chandler</td>
-                    <td>Sales Assistant</td>
-                    <td>San Francisco</td>
-                    <td>59</td>
-                    <td>2012/08/06</td>
-                    <td>$137,500</td>
-                </tr>
-                <tr>
-                    <td>Rhona Davidson</td>
-                    <td>Integration Specialist</td>
-                    <td>Tokyo</td>
-                    <td>55</td>
-                    <td>2010/10/14</td>
-                    <td>$327,900</td>
-                </tr>
-                <tr>
-                    <td>Colleen Hurst</td>
-                    <td>Javascript Developer</td>
-                    <td>San Francisco</td>
-                    <td>39</td>
-                    <td>2009/09/15</td>
-                    <td>$205,500</td>
-                </tr>
-                <tr>
-                    <td>Sonya Frost</td>
-                    <td>Software Engineer</td>
-                    <td>Edinburgh</td>
-                    <td>23</td>
-                    <td>2008/12/13</td>
-                    <td>$103,600</td>
-                </tr>
-                <tr>
-                    <td>Jena Gaines</td>
-                    <td>Office Manager</td>
-                    <td>London</td>
-                    <td>30</td>
-                    <td>2008/12/19</td>
-                    <td>$90,560</td>
-                </tr>
-                <tr>
-                    <td>Quinn Flynn</td>
-                    <td>Support Lead</td>
-                    <td>Edinburgh</td>
-                    <td>22</td>
-                    <td>2013/03/03</td>
-                    <td>$342,000</td>
-                </tr>
-                <tr>
-                    <td>Charde Marshall</td>
-                    <td>Regional Director</td>
-                    <td>San Francisco</td>
-                    <td>36</td>
-                    <td>2008/10/16</td>
-                    <td>$470,600</td>
-                </tr>
-                <tr>
-                    <td>Haley Kennedy</td>
-                    <td>Senior Marketing Designer</td>
-                    <td>London</td>
-                    <td>43</td>
-                    <td>2012/12/18</td>
-                    <td>$313,500</td>
-                </tr>
-                <tr>
-                    <td>Tatyana Fitzpatrick</td>
-                    <td>Regional Director</td>
-                    <td>London</td>
-                    <td>19</td>
-                    <td>2010/03/17</td>
-                    <td>$385,750</td>
-                </tr>
-                <tr>
-                    <td>Michael Silva</td>
-                    <td>Marketing Designer</td>
-                    <td>London</td>
-                    <td>66</td>
-                    <td>2012/11/27</td>
-                    <td>$198,500</td>
-                </tr>
-                <tr>
-                    <td>Paul Byrd</td>
-                    <td>Chief Financial Officer (CFO)</td>
-                    <td>New York</td>
-                    <td>64</td>
-                    <td>2010/06/09</td>
-                    <td>$725,000</td>
-                </tr>
-                <tr>
-                    <td>Gloria Little</td>
-                    <td>Systems Administrator</td>
-                    <td>New York</td>
-                    <td>59</td>
-                    <td>2009/04/10</td>
-                    <td>$237,500</td>
-                </tr>
-                <tr>
-                    <td>Bradley Greer</td>
-                    <td>Software Engineer</td>
-                    <td>London</td>
-                    <td>41</td>
-                    <td>2012/10/13</td>
-                    <td>$132,000</td>
-                </tr>
-                <tr>
-                    <td>Dai Rios</td>
-                    <td>Personnel Lead</td>
-                    <td>Edinburgh</td>
-                    <td>35</td>
-                    <td>2012/09/26</td>
-                    <td>$217,500</td>
-                </tr>
-                <tr>
-                    <td>Jenette Caldwell</td>
-                    <td>Development Lead</td>
-                    <td>New York</td>
-                    <td>30</td>
-                    <td>2011/09/03</td>
-                    <td>$345,000</td>
-                </tr>
-                <tr>
-                    <td>Yuri Berry</td>
-                    <td>Chief Marketing Officer (CMO)</td>
-                    <td>New York</td>
-                    <td>40</td>
-                    <td>2009/06/25</td>
-                    <td>$675,000</td>
-                </tr>
-                <tr>
-                    <td>Caesar Vance</td>
-                    <td>Pre-Sales Support</td>
-                    <td>New York</td>
-                    <td>21</td>
-                    <td>2011/12/12</td>
-                    <td>$106,450</td>
-                </tr>
-                <tr>
-                    <td>Doris Wilder</td>
-                    <td>Sales Assistant</td>
-                    <td>Sidney</td>
-                    <td>23</td>
-                    <td>2010/09/20</td>
-                    <td>$85,600</td>
-                </tr>
-                <tr>
-                    <td>Angelica Ramos</td>
-                    <td>Chief Executive Officer (CEO)</td>
-                    <td>London</td>
-                    <td>47</td>
-                    <td>2009/10/09</td>
-                    <td>$1,200,000</td>
-                </tr>
-                <tr>
-                    <td>Gavin Joyce</td>
-                    <td>Developer</td>
-                    <td>Edinburgh</td>
-                    <td>42</td>
-                    <td>2010/12/22</td>
-                    <td>$92,575</td>
-                </tr>
-                <tr>
-                    <td>Jennifer Chang</td>
-                    <td>Regional Director</td>
-                    <td>Singapore</td>
-                    <td>28</td>
-                    <td>2010/11/14</td>
-                    <td>$357,650</td>
-                </tr>
-                <tr>
-                    <td>Brenden Wagner</td>
-                    <td>Software Engineer</td>
-                    <td>San Francisco</td>
-                    <td>28</td>
-                    <td>2011/06/07</td>
-                    <td>$206,850</td>
-                </tr>
-                <tr>
-                    <td>Fiona Green</td>
-                    <td>Chief Operating Officer (COO)</td>
-                    <td>San Francisco</td>
-                    <td>48</td>
-                    <td>2010/03/11</td>
-                    <td>$850,000</td>
-                </tr>
-                <tr>
-                    <td>Shou Itou</td>
-                    <td>Regional Marketing</td>
-                    <td>Tokyo</td>
-                    <td>20</td>
-                    <td>2011/08/14</td>
-                    <td>$163,000</td>
-                </tr>
-                <tr>
-                    <td>Michelle House</td>
-                    <td>Integration Specialist</td>
-                    <td>Sidney</td>
-                    <td>37</td>
-                    <td>2011/06/02</td>
-                    <td>$95,400</td>
-                </tr>
-                <tr>
-                    <td>Suki Burks</td>
-                    <td>Developer</td>
-                    <td>London</td>
-                    <td>53</td>
-                    <td>2009/10/22</td>
-                    <td>$114,500</td>
-                </tr>
-                <tr>
-                    <td>Prescott Bartlett</td>
-                    <td>Technical Author</td>
-                    <td>London</td>
-                    <td>27</td>
-                    <td>2011/05/07</td>
-                    <td>$145,000</td>
-                </tr>
-                <tr>
-                    <td>Gavin Cortez</td>
-                    <td>Team Leader</td>
-                    <td>San Francisco</td>
-                    <td>22</td>
-                    <td>2008/10/26</td>
-                    <td>$235,500</td>
-                </tr>
-                <tr>
-                    <td>Martena Mccray</td>
-                    <td>Post-Sales support</td>
-                    <td>Edinburgh</td>
-                    <td>46</td>
-                    <td>2011/03/09</td>
-                    <td>$324,050</td>
-                </tr>
-                <tr>
-                    <td>Unity Butler</td>
-                    <td>Marketing Designer</td>
-                    <td>San Francisco</td>
-                    <td>47</td>
-                    <td>2009/12/09</td>
-                    <td>$85,675</td>
-                </tr>
-                <tr>
-                    <td>Howard Hatfield</td>
-                    <td>Office Manager</td>
-                    <td>San Francisco</td>
-                    <td>51</td>
-                    <td>2008/12/16</td>
-                    <td>$164,500</td>
-                </tr>
-                <tr>
-                    <td>Hope Fuentes</td>
-                    <td>Secretary</td>
-                    <td>San Francisco</td>
-                    <td>41</td>
-                    <td>2010/02/12</td>
-                    <td>$109,850</td>
-                </tr>
-                <tr>
-                    <td>Vivian Harrell</td>
-                    <td>Financial Controller</td>
-                    <td>San Francisco</td>
-                    <td>62</td>
-                    <td>2009/02/14</td>
-                    <td>$452,500</td>
-                </tr>
-                <tr>
-                    <td>Timothy Mooney</td>
-                    <td>Office Manager</td>
-                    <td>London</td>
-                    <td>37</td>
-                    <td>2008/12/11</td>
-                    <td>$136,200</td>
-                </tr>
-                <tr>
-                    <td>Jackson Bradshaw</td>
-                    <td>Director</td>
-                    <td>New York</td>
-                    <td>65</td>
-                    <td>2008/09/26</td>
-                    <td>$645,750</td>
-                </tr>
-                <tr>
-                    <td>Olivia Liang</td>
-                    <td>Support Engineer</td>
-                    <td>Singapore</td>
-                    <td>64</td>
-                    <td>2011/02/03</td>
-                    <td>$234,500</td>
-                </tr>
-                <tr>
-                    <td>Bruno Nash</td>
-                    <td>Software Engineer</td>
-                    <td>London</td>
-                    <td>38</td>
-                    <td>2011/05/03</td>
-                    <td>$163,500</td>
-                </tr>
-                <tr>
-                    <td>Sakura Yamamoto</td>
-                    <td>Support Engineer</td>
-                    <td>Tokyo</td>
-                    <td>37</td>
-                    <td>2009/08/19</td>
-                    <td>$139,575</td>
-                </tr>
-                <tr>
-                    <td>Thor Walton</td>
-                    <td>Developer</td>
-                    <td>New York</td>
-                    <td>61</td>
-                    <td>2013/08/11</td>
-                    <td>$98,540</td>
-                </tr>
-                <tr>
-                    <td>Finn Camacho</td>
-                    <td>Support Engineer</td>
-                    <td>San Francisco</td>
-                    <td>47</td>
-                    <td>2009/07/07</td>
-                    <td>$87,500</td>
-                </tr>
-                <tr>
-                    <td>Serge Baldwin</td>
-                    <td>Data Coordinator</td>
-                    <td>Singapore</td>
-                    <td>64</td>
-                    <td>2012/04/09</td>
-                    <td>$138,575</td>
-                </tr>
-                <tr>
-                    <td>Zenaida Frank</td>
-                    <td>Software Engineer</td>
-                    <td>New York</td>
-                    <td>63</td>
-                    <td>2010/01/04</td>
-                    <td>$125,250</td>
-                </tr>
-                <tr>
-                    <td>Zorita Serrano</td>
-                    <td>Software Engineer</td>
-                    <td>San Francisco</td>
-                    <td>56</td>
-                    <td>2012/06/01</td>
-                    <td>$115,000</td>
-                </tr>
-                <tr>
-                    <td>Jennifer Acosta</td>
-                    <td>Junior Javascript Developer</td>
-                    <td>Edinburgh</td>
-                    <td>43</td>
-                    <td>2013/02/01</td>
-                    <td>$75,650</td>
-                </tr>
-                <tr>
-                    <td>Cara Stevens</td>
-                    <td>Sales Assistant</td>
-                    <td>New York</td>
-                    <td>46</td>
-                    <td>2011/12/06</td>
-                    <td>$145,600</td>
-                </tr>
-                <tr>
-                    <td>Hermione Butler</td>
-                    <td>Regional Director</td>
-                    <td>London</td>
-                    <td>47</td>
-                    <td>2011/03/21</td>
-                    <td>$356,250</td>
-                </tr>
-                <tr>
-                    <td>Lael Greer</td>
-                    <td>Systems Administrator</td>
-                    <td>London</td>
-                    <td>21</td>
-                    <td>2009/02/27</td>
-                    <td>$103,500</td>
-                </tr>
-                <tr>
-                    <td>Jonas Alexander</td>
-                    <td>Developer</td>
-                    <td>San Francisco</td>
-                    <td>30</td>
-                    <td>2010/07/14</td>
-                    <td>$86,500</td>
-                </tr>
-                <tr>
-                    <td>Shad Decker</td>
-                    <td>Regional Director</td>
-                    <td>Edinburgh</td>
-                    <td>51</td>
-                    <td>2008/11/13</td>
-                    <td>$183,000</td>
-                </tr>
-                <tr>
-                    <td>Michael Bruce</td>
-                    <td>Javascript Developer</td>
-                    <td>Singapore</td>
-                    <td>29</td>
-                    <td>2011/06/27</td>
-                    <td>$183,000</td>
-                </tr>
-                <tr>
-                    <td>Donna Snider</td>
-                    <td>Customer Support</td>
-                    <td>New York</td>
-                    <td>27</td>
-                    <td>2011/01/25</td>
-                    <td>$112,000</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <p>Highcharts:</p>
-    <div class="examples">
-        <div id="chart1" style="width:50%"></div>
-    </div>
+        <a class="catalog-title" href="#datepicker">Datepicker</a>
+        <ul class="catalog-section">
+            <li>
+                <a href="#datepickerUsage">基本用法</a>
+            </li>
+        </ul>
+        <a class="catalog-title" href="#select">Select</a>
+        <ul class="catalog-section">
+            <li>
+                <a href="#selectUsage">基本用法</a>
+            </li>
+        </ul>
+        <a class="catalog-title" href="#autocomplete">AutoComplete</a>
+        <ul class="catalog-section">
+            <li>
+                <a href="#acUsage">基本用法</a>
+            </li>
+        </ul>
+        <a class="catalog-title" href="#check">Checkbox/Radio</a>
+        <ul class="catalog-section">
+            <li>
+                <a href="#checkUsage">基本用法</a>
+            </li>
+        </ul>
+        <a class="catalog-title" href="#tab">Tab</a>
+        <ul class="catalog-section">
+            <li>
+                <a href="#tabUsage">基本用法</a>
+            </li>
+        </ul>
+        <a class="catalog-title" href="#checkgroup">CheckGroup</a>
+        <ul class="catalog-section">
+            <li>
+                <a href="#cgUsage">基本用法</a>
+            </li>
+        </ul>
+        <a class="catalog-title" href="#tooltip">Tooltip</a>
+        <ul class="catalog-section">
+            <li>
+                <a href="#tooltipUsage">基本用法</a>
+            </li>
+        </ul>
+        <a class="catalog-title" href="#sortable">Sortable</a>
+        <ul class="catalog-section">
+            <li>
+                <a href="#sortableUsage">基本用法</a>
+            </li>
+        </ul>
+        <a class="catalog-title" href="#datatable">Datatable</a>
+        <ul class="catalog-section">
+            <li>
+                <a href="#datatableUsage">基本用法</a>
+            </li>
+        </ul>
+    </aside>
+    <main>
+        <h1 id="button">BUTTON</h1>
+        <h2 id="buttonTags">可作为按钮使用的元素</h2>
+        <p>
+            按钮类可应用于
+            <code>a</code>、
+            <code>button</code>
+            或
+            <code>input</code>
+            元素。
+        </p>
+        <div class="example">
+            <a href="javascript:void(0)" class="btn">Link</a>
+            <button class="btn" type="button">Button</button>
+            <input class="btn" type="button" value="Input">
+        </div>
+        <div class="code html">
+            <pre class="prettyprint">
+&lt;a href="javascript:void(0)" class="btn"&gt;Link&lt;/a&gt;
+&lt;button class="btn" type="button"&gt;Button&lt;/button&gt;
+&lt;input class="btn" type="button" value="Input"&gt;</pre>
+        </div>
+        <h2 id="buttonDisabled">禁用状态</h2>
+        <p>
+            <code>a</code>
+            元素默认不支持
+            <code>disabled</code>
+            属性，需要添加
+            <code>.disabled</code>
+            类来达到禁用效果。
+        </p>
+        <div class="example">
+            <a href="javascript:void(0)" class="btn disabled">Link</a>
+            <button class="btn" type="button" disabled>Button</button>
+            <input class="btn" type="button" value="Input" disabled>
+        </div>
+        <div class="code html">
+            <pre class="prettyprint">
+&lt;a href="javascript:void(0)" class="btn disabled"&gt;Link&lt;/a&gt;
+&lt;button class="btn" type="button" disabled&gt;Button&lt;/button&gt;
+&lt;input class="btn" type="button" value="Input" disabled&gt;</pre>
+        </div>
+        <h1 id="input">INPUT</h1>
+        <h2 id="inputUsage">基本用法</h2>
+        <p>
+            添加
+            <code>.text-input</code>
+            类应用样式，使用
+            <code>disabled</code>
+            属性禁用输入框。
+        </p>
+        <div class="example">
+            <input type="text" class="text-input" value="Normal">
+            <input type="text" class="text-input" value="Disabled" disabled>
+        </div>
+        <div class="code html">
+            <pre class="prettyprint">
+&lt;input type="text" class="text-input" value="Normal"&gt;
+&lt;input type="text" class="text-input" value="Disabled" disabled&gt;</pre>
+        </div>
+        <h2 id="inputWithIcon">带图标的输入框</h2>
+        <p>可以添加额外的类来增强输入框的显示</p>
+        <div class="example">
+            <input type="text" class="text-input search">
+        </div>
+        <div class="code html">
+            <pre class="prettyprint">
+&lt;input type="text" class="text-input search"&gt;</pre>
+        </div>
+        <h1 id="datepicker">DATEPICKER</h1>
+        <p>
+            插件官方文档：
+            <a target="_blank" href="https://github.com/eternicode/bootstrap-datepicker">https://github.com/eternicode/bootstrap-datepicker</a>
+        </p>
+        <h2 id="datepickerUsage">基本用法</h2>
+        <p>
+            可以通过
+            <code>$.fn.datepicker.defaults</code>
+            设置默认值。
+        </p>
+        <div class="example">
+            <input id="date" type="text" class="text-input date">
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;input id="date" type="text" class="text-input date"&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#date').datepicker({
+    language: "zh-CN",
+    autoclose: true,
+    todayHighlight: true,
+    daysOfWeekHighlighted: "0,6"
+});</pre>
+        </div>
+        <h1 id="select">SELECT</h1>
+        <p>
+            插件官方文档：
+            <a target="_blank" href="https://harvesthq.github.io/chosen/">https://harvesthq.github.io/chosen/</a>    
+        </p>
+        <h2 id="selectUsage">基本用法</h2>
+        <p>
+            使用原生的
+            <code>select</code>
+            初始化插件。
+        </p>
+        <div class="example">
+            <select name="speed" id="chosen">
+                <option>Slower</option>
+                <option>Slow</option>
+                <option selected="selected">Medium</option>
+                <option>Fast</option>
+                <option>Faster</option>
+            </select>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;select name="speed" id="chosen"&gt;
+    &lt;option&gt;Slower&lt;/option&gt;
+    &lt;option&gt;Slow&lt;/option&gt;
+    &lt;option selected="selected"&gt;Medium&lt;/option&gt;
+    &lt;option&gt;Fast&lt;/option&gt;
+    &lt;option&gt;Faster&lt;/option&gt;
+&lt;/select&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$("#chosen").chosen({
+    width: '200px',
+    disable_search: true
+});</pre>
+        </div>
+        <h1 id="autocomplete">AUTOCOMPLETE</h1>
+        <p>
+            插件官方文档：
+            <a target="_blank" href="http://jqueryui.com/autocomplete/">http://jqueryui.com/autocomplete/</a>
+        </p>
+        <h2 id="acUsage">基本用法</h2>
+        <p>
+            使用
+            <code>$.ui.autocomplete.prototype.options</code>
+            设置默认值。
+        </p>
+        <div class="example">
+            <input type="text" id="ac" class="text-input">
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;input type="text" id="ac" class="text-input"&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+var availableTags = [
+    "ActionScript",
+    "AppleScript",
+    "Asp",
+    "BASIC",
+    "C",
+    "C++",
+    "Clojure",
+    "COBOL",
+    "ColdFusion",
+    "Erlang",
+    "Fortran",
+    "Groovy",
+    "Haskell",
+    "Java",
+    "JavaScript",
+    "Lisp",
+    "Perl",
+    "PHP",
+    "Python",
+    "Ruby",
+    "Scala",
+    "Scheme"
+];
+$( "#ac" ).autocomplete({
+    source: availableTags,
+    autoFocus: true
+});</pre>
+        </div>
+        <h1 id="check">CHECKBOX/RADIO</h1>
+        <p>
+            插件官方文档：
+            <a target="_blank" href="http://icheck.fronteed.com/">http://icheck.fronteed.com/</a>
+        </p>
+        <h2 id="checkUsage">基本用法</h2>
+        <p>
+            使用原生的
+            <code>input</code>
+            初始化插件。
+        </p>
+        <div class="example" id="checks">
+            <label>
+                <input type="checkbox" name="checkbox" value="true" checked> Checked
+            </label>
+            <label>
+                <input type="checkbox" name="checkbox" value="true"> Unchecked
+            </label>
+            <label>
+                <input type="checkbox" name="checkbox" value="true" disabled> Disabled
+            </label>
+            <br>
+            <label>
+                <input type="radio" name="radio" value="true" checked> Checked
+            </label>
+            <label>
+                <input type="radio" name="radio" value="true"> Unchecked
+            </label>
+            <label>
+                <input type="radio" name="radio" value="true" disabled> Disabled
+            </label>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;label&gt;
+    &lt;input type="checkbox" name="checkbox" value="true" checked&gt; Checked
+&lt;/label&gt;
+&lt;label&gt;
+    &lt;input type="checkbox" name="checkbox" value="true"&gt; Unchecked
+&lt;/label&gt;
+&lt;label&gt;
+    &lt;input type="checkbox" name="checkbox" value="true" disabled&gt; Disabled
+&lt;/label&gt;
+&lt;br&gt;
+&lt;label&gt;
+    &lt;input type="radio" name="radio" value="true" checked&gt; Checked
+&lt;/label&gt;
+&lt;label&gt;
+    &lt;input type="radio" name="radio" value="true"&gt; Unchecked
+&lt;/label&gt;
+&lt;label&gt;
+    &lt;input type="radio" name="radio" value="true" disabled&gt; Disabled
+&lt;/label&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#checks input').iCheck();</pre>
+        </div>
+        <h1 id="tab">TAB</h1>
+        <h2 class="tabUsage">基本用法</h2>
+        <p>
+            使用
+            <code>$.fn.tab.defaults</code>
+            设置默认值。
+        </p>
+        <div class="example">
+            <ul id="tabGroup" class="tab-group">
+                <li>
+                    <a href="#tab1" class="active">未确认</a>
+                </li>
+                <li>
+                    <a href="#tab2">已确认</a>
+                </li>
+                <li>
+                    <a href="#tab3">已发布</a>
+                </li>
+            </ul>
+            <p id="tab1">未确认</p>
+            <p id="tab2">已确认</p>
+            <p id="tab3">已发布</p>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;ul id="tabGroup" class="tab-group"&gt;
+    &lt;li&gt;
+        &lt;a href="#tab1" class="active"&gt;未确认&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href="#tab2"&gt;已确认&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href="#tab3"&gt;已发布&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p id="tab1"&gt;未确认&lt;/p&gt;
+&lt;p id="tab2"&gt;已确认&lt;/p&gt;
+&lt;p id="tab3"&gt;已发布&lt;/p&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#tabGroup').tab();</pre>
+        </div>
+        <h1 id="checkgroup">CHECKGROUP</h1>
+        <h2 id="cgUsage">基本用法</h2>
+        <p>
+            使用
+            <code>$.fn.checkgroup.defaults</code>
+            设置默认值。注意设置初始状态。
+        </p>
+        <div class="example">
+            <div id="checkGroup" class="check-group">
+                <label class="checked" data-checkgroup-all>
+                    <input type="checkbox" name="options" value="all" checked>全部
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="o/n">O/N
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="1w">1W
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="2w">2W
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="1m">1M
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="2m">2M
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="3m">3M
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="6m">6M
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="1y">≥1Y
+                </label>
+            </div>   
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;div id="checkGroup" class="check-group"&gt;
+    &lt;label class="checked" data-checkgroup-all&gt;
+        &lt;input type="checkbox" name="options" value="all" checked&gt;全部
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="o/n"&gt;O/N
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="1w"&gt;1W
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="2w"&gt;2W
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="1m"&gt;1M
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="2m"&gt;2M
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="3m"&gt;3M
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="6m"&gt;6M
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="1y"&gt;≥1Y
+    &lt;/label&gt;
+&lt;/div&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#checkGroup').checkgroup();</pre>
+        </div>
+        <h1 id="tooltip">TOOLTIP</h1>
+        <p>
+            插件官方文档：
+            <a target="_blank" href="http://qtip2.com/">http://qtip2.com/</a>
+        </p>
+        <h2 id="tooltipUsage">基本用法</h2>
+        <p>
+            默认采用
+            <code>title</code>
+            属性的值作为提示内容。使用
+            <code>$.fn.qtip.defaults</code>
+            设置默认值。
+        </p>
+        <div class="example">
+            <span id="qtipText" title="I'm Tooltip!">Hover Me!</span>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;span id="qtipText" title="I'm Tooltip!"&gt;Hover Me!&lt;/span&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#qtipText').qtip();</pre>
+        </div>
+        <h1 id="sortable">SORTABLE</h1>
+        <p>
+            插件官方文档：
+            <a target="_blank" href="http://jqueryui.com/sortable/">http://jqueryui.com/sortable/</a>
+        </p>
+        <h2 id="sortableUsage">基本用法</h2>
+        <p>
+            使用鼠标拖拽进行排序。插件对HTML格式没有严格要求。使用
+            <code>$.ui.sortable.prototype.options</code>
+            设置默认值。
+        </p>
+        <div class="example">
+            <ul id="sortableList">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+                <li>Item 4</li>
+            </ul>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;ul id="sortableList"&gt;
+    &lt;li&gt;Item 1&lt;/li&gt;
+    &lt;li&gt;Item 2&lt;/li&gt;
+    &lt;li&gt;Item 3&lt;/li&gt;
+    &lt;li&gt;Item 4&lt;/li&gt;
+&lt;/ul&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$( "#sortableList" ).sortable();</pre>
+        </div>
+        <h1 id="datatable">DATATABLE</h1>
+        <p>
+            插件官方文档：
+            <a target="_blank" href="https://www.datatables.net/">https://www.datatables.net/</a>
+        </p>
+        <h2 id="datatableUsage">基本用法</h2>
+        <p>
+            使用
+            <code>$.fn.Datatable.defaults</code>
+            设置默认值。
+        </p>
+        <div class="example">
+            <table id="table" class="hover nowrap" width="100%">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>Age</th>
+                        <th>Start date</th>
+                        <th>Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tiger Nixon</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>2011/04/25</td>
+                        <td>$320,800</td>
+                    </tr>
+                    <tr>
+                        <td>Garrett Winters</td>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>63</td>
+                        <td>2011/07/25</td>
+                        <td>$170,750</td>
+                    </tr>
+                    <tr>
+                        <td>Ashton Cox</td>
+                        <td>Junior Technical Author</td>
+                        <td>San Francisco</td>
+                        <td>66</td>
+                        <td>2009/01/12</td>
+                        <td>$86,000</td>
+                    </tr>
+                    <tr>
+                        <td>Cedric Kelly</td>
+                        <td>Senior Javascript Developer</td>
+                        <td>Edinburgh</td>
+                        <td>22</td>
+                        <td>2012/03/29</td>
+                        <td>$433,060</td>
+                    </tr>
+                    <tr>
+                        <td>Airi Satou</td>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>33</td>
+                        <td>2008/11/28</td>
+                        <td>$162,700</td>
+                    </tr>
+                    <tr>
+                        <td>Brielle Williamson</td>
+                        <td>Integration Specialist</td>
+                        <td>New York</td>
+                        <td>61</td>
+                        <td>2012/12/02</td>
+                        <td>$372,000</td>
+                    </tr>
+                    <tr>
+                        <td>Herrod Chandler</td>
+                        <td>Sales Assistant</td>
+                        <td>San Francisco</td>
+                        <td>59</td>
+                        <td>2012/08/06</td>
+                        <td>$137,500</td>
+                    </tr>
+                    <tr>
+                        <td>Rhona Davidson</td>
+                        <td>Integration Specialist</td>
+                        <td>Tokyo</td>
+                        <td>55</td>
+                        <td>2010/10/14</td>
+                        <td>$327,900</td>
+                    </tr>
+                    <tr>
+                        <td>Colleen Hurst</td>
+                        <td>Javascript Developer</td>
+                        <td>San Francisco</td>
+                        <td>39</td>
+                        <td>2009/09/15</td>
+                        <td>$205,500</td>
+                    </tr>
+                    <tr>
+                        <td>Sonya Frost</td>
+                        <td>Software Engineer</td>
+                        <td>Edinburgh</td>
+                        <td>23</td>
+                        <td>2008/12/13</td>
+                        <td>$103,600</td>
+                    </tr>
+                    <tr>
+                        <td>Jena Gaines</td>
+                        <td>Office Manager</td>
+                        <td>London</td>
+                        <td>30</td>
+                        <td>2008/12/19</td>
+                        <td>$90,560</td>
+                    </tr>
+                    <tr>
+                        <td>Quinn Flynn</td>
+                        <td>Support Lead</td>
+                        <td>Edinburgh</td>
+                        <td>22</td>
+                        <td>2013/03/03</td>
+                        <td>$342,000</td>
+                    </tr>
+                    <tr>
+                        <td>Charde Marshall</td>
+                        <td>Regional Director</td>
+                        <td>San Francisco</td>
+                        <td>36</td>
+                        <td>2008/10/16</td>
+                        <td>$470,600</td>
+                    </tr>
+                    <tr>
+                        <td>Haley Kennedy</td>
+                        <td>Senior Marketing Designer</td>
+                        <td>London</td>
+                        <td>43</td>
+                        <td>2012/12/18</td>
+                        <td>$313,500</td>
+                    </tr>
+                    <tr>
+                        <td>Tatyana Fitzpatrick</td>
+                        <td>Regional Director</td>
+                        <td>London</td>
+                        <td>19</td>
+                        <td>2010/03/17</td>
+                        <td>$385,750</td>
+                    </tr>
+                    <tr>
+                        <td>Michael Silva</td>
+                        <td>Marketing Designer</td>
+                        <td>London</td>
+                        <td>66</td>
+                        <td>2012/11/27</td>
+                        <td>$198,500</td>
+                    </tr>
+                    <tr>
+                        <td>Paul Byrd</td>
+                        <td>Chief Financial Officer (CFO)</td>
+                        <td>New York</td>
+                        <td>64</td>
+                        <td>2010/06/09</td>
+                        <td>$725,000</td>
+                    </tr>
+                    <tr>
+                        <td>Gloria Little</td>
+                        <td>Systems Administrator</td>
+                        <td>New York</td>
+                        <td>59</td>
+                        <td>2009/04/10</td>
+                        <td>$237,500</td>
+                    </tr>
+                    <tr>
+                        <td>Bradley Greer</td>
+                        <td>Software Engineer</td>
+                        <td>London</td>
+                        <td>41</td>
+                        <td>2012/10/13</td>
+                        <td>$132,000</td>
+                    </tr>
+                    <tr>
+                        <td>Dai Rios</td>
+                        <td>Personnel Lead</td>
+                        <td>Edinburgh</td>
+                        <td>35</td>
+                        <td>2012/09/26</td>
+                        <td>$217,500</td>
+                    </tr>
+                    <tr>
+                        <td>Jenette Caldwell</td>
+                        <td>Development Lead</td>
+                        <td>New York</td>
+                        <td>30</td>
+                        <td>2011/09/03</td>
+                        <td>$345,000</td>
+                    </tr>
+                    <tr>
+                        <td>Yuri Berry</td>
+                        <td>Chief Marketing Officer (CMO)</td>
+                        <td>New York</td>
+                        <td>40</td>
+                        <td>2009/06/25</td>
+                        <td>$675,000</td>
+                    </tr>
+                    <tr>
+                        <td>Caesar Vance</td>
+                        <td>Pre-Sales Support</td>
+                        <td>New York</td>
+                        <td>21</td>
+                        <td>2011/12/12</td>
+                        <td>$106,450</td>
+                    </tr>
+                    <tr>
+                        <td>Doris Wilder</td>
+                        <td>Sales Assistant</td>
+                        <td>Sidney</td>
+                        <td>23</td>
+                        <td>2010/09/20</td>
+                        <td>$85,600</td>
+                    </tr>
+                    <tr>
+                        <td>Angelica Ramos</td>
+                        <td>Chief Executive Officer (CEO)</td>
+                        <td>London</td>
+                        <td>47</td>
+                        <td>2009/10/09</td>
+                        <td>$1,200,000</td>
+                    </tr>
+                    <tr>
+                        <td>Gavin Joyce</td>
+                        <td>Developer</td>
+                        <td>Edinburgh</td>
+                        <td>42</td>
+                        <td>2010/12/22</td>
+                        <td>$92,575</td>
+                    </tr>
+                    <tr>
+                        <td>Jennifer Chang</td>
+                        <td>Regional Director</td>
+                        <td>Singapore</td>
+                        <td>28</td>
+                        <td>2010/11/14</td>
+                        <td>$357,650</td>
+                    </tr>
+                    <tr>
+                        <td>Brenden Wagner</td>
+                        <td>Software Engineer</td>
+                        <td>San Francisco</td>
+                        <td>28</td>
+                        <td>2011/06/07</td>
+                        <td>$206,850</td>
+                    </tr>
+                    <tr>
+                        <td>Fiona Green</td>
+                        <td>Chief Operating Officer (COO)</td>
+                        <td>San Francisco</td>
+                        <td>48</td>
+                        <td>2010/03/11</td>
+                        <td>$850,000</td>
+                    </tr>
+                    <tr>
+                        <td>Shou Itou</td>
+                        <td>Regional Marketing</td>
+                        <td>Tokyo</td>
+                        <td>20</td>
+                        <td>2011/08/14</td>
+                        <td>$163,000</td>
+                    </tr>
+                    <tr>
+                        <td>Michelle House</td>
+                        <td>Integration Specialist</td>
+                        <td>Sidney</td>
+                        <td>37</td>
+                        <td>2011/06/02</td>
+                        <td>$95,400</td>
+                    </tr>
+                    <tr>
+                        <td>Suki Burks</td>
+                        <td>Developer</td>
+                        <td>London</td>
+                        <td>53</td>
+                        <td>2009/10/22</td>
+                        <td>$114,500</td>
+                    </tr>
+                    <tr>
+                        <td>Prescott Bartlett</td>
+                        <td>Technical Author</td>
+                        <td>London</td>
+                        <td>27</td>
+                        <td>2011/05/07</td>
+                        <td>$145,000</td>
+                    </tr>
+                    <tr>
+                        <td>Gavin Cortez</td>
+                        <td>Team Leader</td>
+                        <td>San Francisco</td>
+                        <td>22</td>
+                        <td>2008/10/26</td>
+                        <td>$235,500</td>
+                    </tr>
+                    <tr>
+                        <td>Martena Mccray</td>
+                        <td>Post-Sales support</td>
+                        <td>Edinburgh</td>
+                        <td>46</td>
+                        <td>2011/03/09</td>
+                        <td>$324,050</td>
+                    </tr>
+                    <tr>
+                        <td>Unity Butler</td>
+                        <td>Marketing Designer</td>
+                        <td>San Francisco</td>
+                        <td>47</td>
+                        <td>2009/12/09</td>
+                        <td>$85,675</td>
+                    </tr>
+                    <tr>
+                        <td>Howard Hatfield</td>
+                        <td>Office Manager</td>
+                        <td>San Francisco</td>
+                        <td>51</td>
+                        <td>2008/12/16</td>
+                        <td>$164,500</td>
+                    </tr>
+                    <tr>
+                        <td>Hope Fuentes</td>
+                        <td>Secretary</td>
+                        <td>San Francisco</td>
+                        <td>41</td>
+                        <td>2010/02/12</td>
+                        <td>$109,850</td>
+                    </tr>
+                    <tr>
+                        <td>Vivian Harrell</td>
+                        <td>Financial Controller</td>
+                        <td>San Francisco</td>
+                        <td>62</td>
+                        <td>2009/02/14</td>
+                        <td>$452,500</td>
+                    </tr>
+                    <tr>
+                        <td>Timothy Mooney</td>
+                        <td>Office Manager</td>
+                        <td>London</td>
+                        <td>37</td>
+                        <td>2008/12/11</td>
+                        <td>$136,200</td>
+                    </tr>
+                    <tr>
+                        <td>Jackson Bradshaw</td>
+                        <td>Director</td>
+                        <td>New York</td>
+                        <td>65</td>
+                        <td>2008/09/26</td>
+                        <td>$645,750</td>
+                    </tr>
+                    <tr>
+                        <td>Olivia Liang</td>
+                        <td>Support Engineer</td>
+                        <td>Singapore</td>
+                        <td>64</td>
+                        <td>2011/02/03</td>
+                        <td>$234,500</td>
+                    </tr>
+                    <tr>
+                        <td>Bruno Nash</td>
+                        <td>Software Engineer</td>
+                        <td>London</td>
+                        <td>38</td>
+                        <td>2011/05/03</td>
+                        <td>$163,500</td>
+                    </tr>
+                    <tr>
+                        <td>Sakura Yamamoto</td>
+                        <td>Support Engineer</td>
+                        <td>Tokyo</td>
+                        <td>37</td>
+                        <td>2009/08/19</td>
+                        <td>$139,575</td>
+                    </tr>
+                    <tr>
+                        <td>Thor Walton</td>
+                        <td>Developer</td>
+                        <td>New York</td>
+                        <td>61</td>
+                        <td>2013/08/11</td>
+                        <td>$98,540</td>
+                    </tr>
+                    <tr>
+                        <td>Finn Camacho</td>
+                        <td>Support Engineer</td>
+                        <td>San Francisco</td>
+                        <td>47</td>
+                        <td>2009/07/07</td>
+                        <td>$87,500</td>
+                    </tr>
+                    <tr>
+                        <td>Serge Baldwin</td>
+                        <td>Data Coordinator</td>
+                        <td>Singapore</td>
+                        <td>64</td>
+                        <td>2012/04/09</td>
+                        <td>$138,575</td>
+                    </tr>
+                    <tr>
+                        <td>Zenaida Frank</td>
+                        <td>Software Engineer</td>
+                        <td>New York</td>
+                        <td>63</td>
+                        <td>2010/01/04</td>
+                        <td>$125,250</td>
+                    </tr>
+                    <tr>
+                        <td>Zorita Serrano</td>
+                        <td>Software Engineer</td>
+                        <td>San Francisco</td>
+                        <td>56</td>
+                        <td>2012/06/01</td>
+                        <td>$115,000</td>
+                    </tr>
+                    <tr>
+                        <td>Jennifer Acosta</td>
+                        <td>Junior Javascript Developer</td>
+                        <td>Edinburgh</td>
+                        <td>43</td>
+                        <td>2013/02/01</td>
+                        <td>$75,650</td>
+                    </tr>
+                    <tr>
+                        <td>Cara Stevens</td>
+                        <td>Sales Assistant</td>
+                        <td>New York</td>
+                        <td>46</td>
+                        <td>2011/12/06</td>
+                        <td>$145,600</td>
+                    </tr>
+                    <tr>
+                        <td>Hermione Butler</td>
+                        <td>Regional Director</td>
+                        <td>London</td>
+                        <td>47</td>
+                        <td>2011/03/21</td>
+                        <td>$356,250</td>
+                    </tr>
+                    <tr>
+                        <td>Lael Greer</td>
+                        <td>Systems Administrator</td>
+                        <td>London</td>
+                        <td>21</td>
+                        <td>2009/02/27</td>
+                        <td>$103,500</td>
+                    </tr>
+                    <tr>
+                        <td>Jonas Alexander</td>
+                        <td>Developer</td>
+                        <td>San Francisco</td>
+                        <td>30</td>
+                        <td>2010/07/14</td>
+                        <td>$86,500</td>
+                    </tr>
+                    <tr>
+                        <td>Shad Decker</td>
+                        <td>Regional Director</td>
+                        <td>Edinburgh</td>
+                        <td>51</td>
+                        <td>2008/11/13</td>
+                        <td>$183,000</td>
+                    </tr>
+                    <tr>
+                        <td>Michael Bruce</td>
+                        <td>Javascript Developer</td>
+                        <td>Singapore</td>
+                        <td>29</td>
+                        <td>2011/06/27</td>
+                        <td>$183,000</td>
+                    </tr>
+                    <tr>
+                        <td>Donna Snider</td>
+                        <td>Customer Support</td>
+                        <td>New York</td>
+                        <td>27</td>
+                        <td>2011/01/25</td>
+                        <td>$112,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
-
 </html>
