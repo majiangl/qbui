@@ -3,8 +3,8 @@ QBUI旨在为QB Web开发提供统一的UI框架。浏览器只支持较新版�
 
 ## 如何使用
 1. 请先确保安装了nodejs
-2. 将本项目clone到本地，例如`git clone git@github.com:majiangl/qbui.git`
-3. 进入本地qbui目录，运行`npm install`
+2. 安装gulp-cli，在命令行输入以下命令`npm install -g gulp-cli`
+3. 安装依赖插件，进入本地qbui目录，运行`npm install`
 4. 待第三步安装完所需插件后，运行`gulp`进行构建
 
 ## 如何只选择需要的CSS和JS文件
