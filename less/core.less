@@ -52,23 +52,23 @@ samp {
 
 ::-webkit-scrollbar-track,
 ::-webkit-scrollbar-corner {
-    background-color: @body-bg;
+    background-color: transparent;
 }
 
 ::-webkit-scrollbar-track-piece {
     border-radius: 4px;
-    background-color: @scrollbar-bg;
+    background-color: @scrollbar-track-piece-color;
 }
 
 ::-webkit-scrollbar-thumb {
-    border: 1px solid @scrollbar-bg;
+    border: 1px solid @scrollbar-track-piece-color;
     border-radius: 4px;
-    background-color: @scrollbar-color;
+    background-color: @scrollbar-thumb-color;
     &:hover {
-        background-color: @scrollbar-hover-color;
+        background-color: @scrollbar-thumb-hover-color;
     }
     &:active {
-        background-color: @scrollbar-active-color;
+        background-color: @scrollbar-thumb-active-color;
     }
 }
 

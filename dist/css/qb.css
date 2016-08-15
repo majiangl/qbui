@@ -397,7 +397,7 @@ samp {
 }
 ::-webkit-scrollbar-track,
 ::-webkit-scrollbar-corner {
-  background-color: #292A2C;
+  background-color: transparent;
 }
 ::-webkit-scrollbar-track-piece {
   border-radius: 4px;
@@ -735,6 +735,10 @@ a.btn.disabled {
   background-color: #040b0b;
 }
 .dataTable.hover tbody tr:hover {
+  background-color: #132624;
+}
+.dataTable tbody tr.selected,
+.dataTable tbody tr.selected:hover {
   background-color: #0d3b37;
 }
 .dataTable thead .sorting,
@@ -742,15 +746,12 @@ a.btn.disabled {
 .dataTable thead .sorting_desc {
   cursor: pointer;
 }
-.dataTable thead .sorting::after,
 .dataTable thead .sorting_asc::after,
 .dataTable thead .sorting_desc::after {
   content: '';
-  vertical-align: middle;
   margin-bottom: 2px;
   margin-left: 4px;
 }
-.dataTables_scrollBody .dataTable thead .sorting::after,
 .dataTables_scrollBody .dataTable thead .sorting_asc::after,
 .dataTables_scrollBody .dataTable thead .sorting_desc::after {
   content: none;
@@ -784,6 +785,7 @@ a.btn.disabled {
 }
 .dataTables_wrapper .dataTables_scroll {
   clear: both;
+  background-color: #000;
 }
 .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {
   -webkit-overflow-scrolling: touch;

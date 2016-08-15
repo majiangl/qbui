@@ -36,11 +36,23 @@
             <li>
                 <a href="#datepickerUsage">基本用法</a>
             </li>
+            <li>
+                <a href="#datepickerApi">取值/设值</a>
+            </li>
+            <li>
+                <a href="#datepickerEvent">事件</a>
+            </li>
         </ul>
         <a class="catalog-title" href="#select">Select</a>
         <ul class="catalog-section">
             <li>
                 <a href="#selectUsage">基本用法</a>
+            </li>
+            <li>
+                <a href="#selectApi">更新状态</a>
+            </li>
+            <li>
+                <a href="#selectEvent">事件</a>
             </li>
         </ul>
         <a class="catalog-title" href="#autocomplete">AutoComplete</a>
@@ -48,11 +60,23 @@
             <li>
                 <a href="#acUsage">基本用法</a>
             </li>
+            <li>
+                <a href="#acApi">处理数据</a>
+            </li>
+            <li>
+                <a href="#acEvent">事件</a>
+            </li>
         </ul>
         <a class="catalog-title" href="#check">Checkbox/Radio</a>
         <ul class="catalog-section">
             <li>
                 <a href="#checkUsage">基本用法</a>
+            </li>
+            <li>
+                <a href="#checkApi">api调用</a>
+            </li>
+            <li>
+                <a href="#checkEvent">事件</a>
             </li>
         </ul>
         <a class="catalog-title" href="#tab">Tab</a>
@@ -60,17 +84,41 @@
             <li>
                 <a href="#tabUsage">基本用法</a>
             </li>
+            <li>
+                <a href="#tabApi">api调用</a>
+            </li>
+            <li>
+                <a href="#tabEvent">事件</a>
+            </li>
         </ul>
         <a class="catalog-title" href="#checkgroup">CheckGroup</a>
         <ul class="catalog-section">
             <li>
                 <a href="#cgUsage">基本用法</a>
             </li>
+            <li>
+                <a href="#cgSingle">单选模式</a>
+            </li>
+            <li>
+                <a href="#cgMulti">多选模式</a>
+            </li>
+            <li>
+                <a href="#cgEvent">事件</a>
+            </li>
         </ul>
         <a class="catalog-title" href="#tooltip">Tooltip</a>
         <ul class="catalog-section">
             <li>
                 <a href="#tooltipUsage">基本用法</a>
+            </li>
+            <li>
+                <a href="#tooltipText">静态提示</a>
+            </li>
+            <li>
+                <a href="#tooltipAjax">ajax提示</a>
+            </li>
+            <li>
+                <a href="#tooltipDelegate">委托代理</a>
             </li>
         </ul>
         <a class="catalog-title" href="#sortable">Sortable</a>
@@ -83,6 +131,9 @@
         <ul class="catalog-section">
             <li>
                 <a href="#datatableUsage">基本用法</a>
+            </li>
+            <li>
+                <a href="#datatableSelect">Select插件</a>
             </li>
         </ul>
     </aside>
@@ -182,6 +233,46 @@ $('#date').datepicker({
     daysOfWeekHighlighted: "0,6"
 });</pre>
         </div>
+        <h2 id="datepickerApi">取值/设值</h2>
+        <div class="example">
+            <input id="date1" type="text" class="text-input date">
+            <input id="date1Btn1" type="button" class="btn" value="Get date">
+            <input id="date1Btn2" type="button" class="btn" value="Set to 2016-08-08">
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;input id="date1" type="text" class="text-input date"&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+// Get date
+$('#date1').datepicker('getDate');
+// Get string
+$('#date1').val();
+// Set date
+$('#date1').datepicker('update', '2016-08-08');
+// or
+$('#date1').datepicker('setDate', '2016-08-08');</pre>
+        </div>
+        <h2 id="datepickerEvent">事件</h2>
+        <p>
+            所有事件都会在input上触发。下面是
+            <code>changeDate</code>
+            事件的示例。
+        </p>
+        <div class="example">
+            <input id="date2" type="text" class="text-input date">
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;input id="date2" type="text" class="text-input date"&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#date2').on('changeDate', function(evt){
+    alert('Event changeDate triggered');
+});</pre>
+        </div>
         <h1 id="select">SELECT</h1>
         <p>
             插件官方文档：
@@ -217,6 +308,74 @@ $('#date').datepicker({
 $("#chosen").chosen({
     width: '200px',
     disable_search: true
+});</pre>
+        </div>
+        <h2 id="selectApi">更新状态</h2>
+        <p>
+            若要对select本身或选项的状态（比如禁用）进行更改，或添加删除选项，需要在原生的select元素上进行修改，通过调用
+            <code>.trigger("chosen:updated")</code>
+            ，插件自动从原生select更新状态。
+        </p>
+        <div class="example">
+            <select name="speed" id="chosen1">
+                <option>Slower</option>
+                <option>Slow</option>
+                <option>Medium</option>
+                <option>Fast</option>
+                <option>Faster</option>
+            </select>
+            <input id="chosen1Btn1" type="button" class="btn" value="Disable">
+            <input id="chosen1Btn2" type="button" class="btn" value="Enable">
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;select name="speed" id="chosen1"&gt;
+    &lt;option&gt;Slower&lt;/option&gt;
+    &lt;option&gt;Slow&lt;/option&gt;
+    &lt;option&gt;Medium&lt;/option&gt;
+    &lt;option&gt;Fast&lt;/option&gt;
+    &lt;option&gt;Faster&lt;/option&gt;
+&lt;/select&gt;
+&lt;input id="chosen1Btn1" type="button" class="btn" value="Disable"&gt;
+&lt;input id="chosen1Btn2" type="button" class="btn" value="Enable"&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#chosen1Btn1').click(function(){
+    $('#chosen1').prop('disabled', true).trigger('chosen:updated');
+});
+
+$('#chosen1Btn2').click(function(){
+    $('#chosen1').prop('disabled', false).trigger('chosen:updated');
+});</pre>
+        </div>
+        <h2 id="selectEvent">事件</h2>
+        <p>
+            所有事件在原生select元素上触发。
+        </p>
+        <div class="example">
+            <select name="speed" id="chosen2">
+                <option>Slower</option>
+                <option>Slow</option>
+                <option>Medium</option>
+                <option>Fast</option>
+                <option>Faster</option>
+            </select>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;select name="speed" id="chosen2"&gt;
+    &lt;option&gt;Slower&lt;/option&gt;
+    &lt;option&gt;Slow&lt;/option&gt;
+    &lt;option&gt;Medium&lt;/option&gt;
+    &lt;option&gt;Fast&lt;/option&gt;
+    &lt;option&gt;Faster&lt;/option&gt;
+&lt;/select&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#chosen2').change(function(evt, data){
+    alert('Current selected: '+data.selected);
 });</pre>
         </div>
         <h1 id="autocomplete">AUTOCOMPLETE</h1>
@@ -267,6 +426,48 @@ $( "#ac" ).autocomplete({
     source: availableTags,
     autoFocus: true
 });</pre>
+        </div>
+        <h2 id="acApi">处理数据</h2>
+        <p>
+            Autocomplete在搜索建议选项时，允许用户提供自己的逻辑，简单而又具有灵活性。
+        </p>
+        <div class="example">
+            <input type="text" id="ac1" class="text-input">
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;input type="text" id="ac1" class="text-input"&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#ac1').autocomplete({
+    source: function(request, response){
+        var item = 'You searched: '+request.term;
+        response([item]);
+    }
+});</pre>
+        </div>
+        <h2 id="acEvent">事件</h2>
+        <p>
+            jquery ui有统一的事件绑定机制，以下两种方式均可。
+        </p>
+        <div class="example">
+            <input type="text" id="ac2" class="text-input">
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;input type="text" id="ac2" class="text-input"&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#ac2').autocomplete({
+    source: availableTags,
+    select: function(event, ui) {
+        alert('select event triggered');
+    }
+});
+// or
+// $('#ac2').on('autocompleteselect', function(event, ui){});</pre>
         </div>
         <h1 id="check">CHECKBOX/RADIO</h1>
         <p>
@@ -326,8 +527,52 @@ $( "#ac" ).autocomplete({
             <pre class="prettyprint">
 $('#checks input').iCheck();</pre>
         </div>
+        <h2 id="checkApi">api调用</h2>
+        <p>
+            可以通过api设置插件状态，check，uncheck，enable，disable等等。
+        </p>
+        <div class="example">
+            <label>
+                <input id="check1" type="checkbox" name="checkbox" value="true"> Checkbox
+            </label>
+            <input id="check1Btn1" type="button" class="btn" value="Toggle">
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;label&gt;
+    &lt;input id="check1" type="checkbox" name="checkbox" value="true"&gt; Checkbox
+&lt;/label&gt;
+&lt;input id="check1Btn1" type="button" class="btn" value="Toggle"&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#check1Btn1').click(function(){
+    $('#check1').iCheck('toggle');
+});</pre>
+        </div>
+        <h2 id="checkEvent">事件</h2>
+        <p>
+            该插件提供自己定义的事件，在input元素上触发。
+        </p>
+        <div class="example">
+            <label>
+                <input id="check2" type="checkbox" name="checkbox" value="true"> Checkbox
+            </label>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;label&gt;
+    &lt;input id="check2" type="checkbox" name="checkbox" value="true"&gt; Checkbox
+&lt;/label&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#check2').on('ifChecked', function(){
+    alert('checked');
+}).iCheck();</pre>
+        </div>
         <h1 id="tab">TAB</h1>
-        <h2 class="tabUsage">基本用法</h2>
+        <h2 id="tabUsage">基本用法</h2>
         <p>
             使用
             <code>$.fn.tab.defaults</code>
@@ -336,7 +581,7 @@ $('#checks input').iCheck();</pre>
         <div class="example">
             <ul id="tabGroup" class="tab-group">
                 <li>
-                    <a href="#tab1" class="active">未确认</a>
+                    <a href="#tab1">未确认</a>
                 </li>
                 <li>
                     <a href="#tab2">已确认</a>
@@ -353,7 +598,7 @@ $('#checks input').iCheck();</pre>
             <pre class="prettyprint">
 &lt;ul id="tabGroup" class="tab-group"&gt;
     &lt;li&gt;
-        &lt;a href="#tab1" class="active"&gt;未确认&lt;/a&gt;
+        &lt;a href="#tab1"&gt;未确认&lt;/a&gt;
     &lt;/li&gt;
     &lt;li&gt;
         &lt;a href="#tab2"&gt;已确认&lt;/a&gt;
@@ -370,12 +615,123 @@ $('#checks input').iCheck();</pre>
             <pre class="prettyprint">
 $('#tabGroup').tab();</pre>
         </div>
+        <h2 id="tabApi">api调用</h2>
+        <p>
+            可以通过api选中tab。
+        </p>
+        <div class="example">
+            <ul id="tabGroup1" class="tab-group">
+                <li>
+                    <a href="#tab11">未确认</a>
+                </li>
+                <li>
+                    <a href="#tab12">已确认</a>
+                </li>
+                <li>
+                    <a href="#tab13">已发布</a>
+                </li>
+            </ul>
+            <br>
+            <input id="tg1Btn1" type="button" class="btn" value="Select with index 2">
+            <input id="tg1Btn2" type="button" class="btn" value="Select with id #tab13">
+            <input id="tg1Btn3" type="button" class="btn" value='Get selected id'>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;ul id="tabGroup1" class="tab-group"&gt;
+    &lt;li&gt;
+        &lt;a href="#tab11">未确认&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href="#tab12">已确认&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href="#tab13">已发布&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;input id="tg1Btn1" type="button" class="btn" value="Select with index 2"&gt;
+&lt;input id="tg1Btn2" type="button" class="btn" value="Select with id #tab13"&gt;
+&lt;input id="tg1Btn3" type="button" class="btn" value='Get selected id'&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#tg1Btn1').click(function(){
+    $('#tabGroup1').tab('select', 2);
+});
+
+$('#tg1Btn2').click(function(){
+    $('#tabGroup1').tab('select', 'tab13');
+});
+
+$('#tg1Btn3').click(function(){
+    var id = $('#tabGroup1').tab('getSelectedId');
+    alert("Selected id: "+id);
+});</pre>
+        </div>
+        <h2 id="tabEvent">事件</h2>
+        <p>
+            事件触发在每个pane上，分别有
+            <code>show.tab</code>,
+            <code>shown.tab</code>,
+            <code>hide.tab</code>,
+            <code>hidden.tab</code>
+            4个事件。Prevent
+            <code>hide.tab</code>
+            事件可以防止tab切换。
+        </p>
+        <div class="example">
+            <ul id="tabGroup2" class="tab-group">
+                <li>
+                    <a href="#tab21">未确认</a>
+                </li>
+                <li>
+                    <a href="#tab22">已确认</a>
+                </li>
+                <li>
+                    <a href="#tab23">已发布</a>
+                </li>
+            </ul>
+            <p id="tab21">未确认</p>
+            <p id="tab22">已确认</p>
+            <p id="tab23">已发布</p>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;ul id="tabGroup2" class="tab-group"&gt;
+    &lt;li&gt;
+        &lt;a href="#tab21"&gt;未确认&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href="#tab22"&gt;已确认&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href="#tab23"&gt;已发布&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p id="tab21"&gt;未确认&lt;/p&gt;
+&lt;p id="tab22"&gt;已确认&lt;/p&gt;
+&lt;p id="tab23"&gt;已发布&lt;/p&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#tab22').on('show.tab', function(){
+   alert('show.tab event triggered');
+});
+
+$('#tab23').on('hide.tab', function(){
+    alert('hide.tab event prevented');
+    return false;
+})</pre>
+        </div>
         <h1 id="checkgroup">CHECKGROUP</h1>
         <h2 id="cgUsage">基本用法</h2>
         <p>
             使用
             <code>$.fn.checkgroup.defaults</code>
-            设置默认值。注意设置初始状态。
+            设置默认值。注意设置初始状态。默认为OS选择模式，按住
+            <code>ctrl</code>
+            多选。
         </p>
         <div class="example">
             <div id="checkGroup" class="check-group">
@@ -444,6 +800,154 @@ $('#tabGroup').tab();</pre>
             <pre class="prettyprint">
 $('#checkGroup').checkgroup();</pre>
         </div>
+        <h2 id="cgSingle">单选模式</h2>
+        <div class="example">
+            <div id="checkGroup1" class="check-group">
+                <label class="checked" data-checkgroup-all>
+                    <input type="checkbox" name="options" value="all" checked>全部
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="o/n">O/N
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="1w">1W
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="2w">2W
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="1m">1M
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="2m">2M
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="3m">3M
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="6m">6M
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="1y">≥1Y
+                </label>
+            </div>   
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;div id="checkGroup1" class="check-group"&gt;
+    &lt;label class="checked" data-checkgroup-all&gt;
+        &lt;input type="checkbox" name="options" value="all" checked&gt;全部
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="o/n"&gt;O/N
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="1w"&gt;1W
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="2w"&gt;2W
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="1m"&gt;1M
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="2m"&gt;2M
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="3m"&gt;3M
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="6m"&gt;6M
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="1y"&gt;≥1Y
+    &lt;/label&gt;
+&lt;/div&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#checkGroup1').checkgroup({
+    selectMode: 'single'
+});</pre>
+        </div>
+        <h2 id="cgMulti">多选模式</h2>
+        <div class="example">
+            <div id="checkGroup2" class="check-group">
+                <label class="checked" data-checkgroup-all>
+                    <input type="checkbox" name="options" value="all" checked>全部
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="o/n">O/N
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="1w">1W
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="2w">2W
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="1m">1M
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="2m">2M
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="3m">3M
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="6m">6M
+                </label>
+                <label>
+                    <input type="checkbox" name="options" value="1y">≥1Y
+                </label>
+            </div>   
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;div id="checkGroup2" class="check-group"&gt;
+    &lt;label class="checked" data-checkgroup-all&gt;
+        &lt;input type="checkbox" name="options" value="all" checked&gt;全部
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="o/n"&gt;O/N
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="1w"&gt;1W
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="2w"&gt;2W
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="1m"&gt;1M
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="2m"&gt;2M
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="3m"&gt;3M
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="6m"&gt;6M
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox" name="options" value="1y"&gt;≥1Y
+    &lt;/label&gt;
+&lt;/div&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#checkGroup2').checkgroup({
+    selectMode: 'multi'
+});</pre>
+        </div>
+        <h2 id="cgEvent">事件</h2>
+        <p>
+            该插件没有自定义的事件，使用原生的html事件。通常只需要在
+            <code>div.check-group</code>
+            上监听
+            <code>change</code>
+            事件即可。
+        </p>
         <h1 id="tooltip">TOOLTIP</h1>
         <p>
             插件官方文档：
@@ -458,15 +962,120 @@ $('#checkGroup').checkgroup();</pre>
             设置默认值。
         </p>
         <div class="example">
-            <span id="qtipText" title="I'm Tooltip!">Hover Me!</span>
+            <span id="qtip" title="I'm Tooltip!">Hover Me!</span>
         </div>
         <div class="code no-border-radius html">
             <pre class="prettyprint">
-&lt;span id="qtipText" title="I'm Tooltip!"&gt;Hover Me!&lt;/span&gt;</pre>
+&lt;span id="qtip" title="I'm Tooltip!"&gt;Hover Me!&lt;/span&gt;</pre>
         </div>
         <div class="code js">
             <pre class="prettyprint">
-$('#qtipText').qtip();</pre>
+$('#qtip').qtip();</pre>
+        </div>
+        <h2 id="tooltipText">静态提示</h2>
+        <p>
+            编程式设置静态提示。
+        </p>
+        <div class="example">
+            <span id="qtip1">Click Me!</span>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;span id="qtip1"&gt;Click Me!&lt;/span&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#qtip1').qtip({
+    content: {
+        text: 'This text is not from title'
+    },
+    show: 'click',
+    position: {
+        my: 'bottom left',
+        at: 'top right'
+    }
+});</pre>
+        </div>
+        <h2 id="tooltipAjax">ajax提示</h2>
+        <p>
+            使用ajax加载提示内容。分两种情况，一是首次显示时加载内容；而是每次显示都加载内容。
+        </p>
+        <div class="example">
+            <span id="qtip2">Load content with ajax!</span>
+            <br>
+            <span id="qtip3">Load content continuously with ajax!</span>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;span id="qtip2" title="I'm Tooltip!"&gt;Load content with ajax!&lt;/span&gt;
+&lt;br&gt;
+&lt;span id="qtip3"&gt;Load content continuously with ajax!&lt;/span&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#qtip2').qtip({
+    content: {
+        text: function(event, api){
+            // send you ajax, call api.set in callback
+            setTimeout(function(){
+                api.set('content.text', 'Return from ajax');
+            }, 500);
+            
+            return 'Loading...';
+        }
+    }
+});
+
+$('#qtip3').qtip({
+    content: {
+        text: function(event, api){
+            // Return promise object to enable continuously load.
+            return $.ajax({
+                url: 'data/tooltip-ajax.json',
+                cache: false
+            })
+            .then(function(res){
+                // Return fetched text
+                return res.text;
+            });
+        }
+    }
+});</pre>
+        </div>
+        <h2 id="tooltipDelegate">委托代理</h2>
+        <p>
+            若有几百成千或上万的列表需要用到tooltip插件，直接绑定无疑会产生大量的tooltip实例，严重影响性能。这时可以结合jQuery的委托绑定来实现tooltip的delegate。
+        </p>
+        <div class="example">
+            <div id="qtip4">
+                <span class="tooltip-delegate">Item 1</span>
+                <span class="tooltip-delegate">Item 2</span>
+                <span class="tooltip-delegate">Item 3</span>
+            </div>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;div id="qtip4"&gt;
+    &lt;span class="tooltip-delegate"&gt;Item 1&lt;/span&gt;
+    &lt;span class="tooltip-delegate"&gt;Item 2&lt;/span&gt;
+    &lt;span class="tooltip-delegate"&gt;Item 3&lt;/span&gt;
+&lt;/div&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#qtip4').on('mouseover', '.tooltip-delegate', function(evt){
+    $(this).qtip({
+        // Make sure the tooltip won't be overridden once created
+        overwrite: false,
+        content: "I'm delegated.",
+        show: {
+            // Use the same show event as the one that triggered the event handler
+            event: event.type,
+            // Show the tooltip as soon as it's bound
+            ready: true
+        }
+    }, event); // Pass through our original event to qTip
+});</pre>
         </div>
         <h1 id="sortable">SORTABLE</h1>
         <p>
@@ -509,479 +1118,131 @@ $( "#sortableList" ).sortable();</pre>
         <p>
             使用
             <code>$.fn.Datatable.defaults</code>
-            设置默认值。
+            设置默认值。添加
+            <code>.hover</code>
+            类启动hover效果；添加
+            <code>.nowrap</code>
+            类使得td内容不会换行。
         </p>
         <div class="example">
-            <table id="table" class="hover nowrap" width="100%">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td>Garrett Winters</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>63</td>
-                        <td>2011/07/25</td>
-                        <td>$170,750</td>
-                    </tr>
-                    <tr>
-                        <td>Ashton Cox</td>
-                        <td>Junior Technical Author</td>
-                        <td>San Francisco</td>
-                        <td>66</td>
-                        <td>2009/01/12</td>
-                        <td>$86,000</td>
-                    </tr>
-                    <tr>
-                        <td>Cedric Kelly</td>
-                        <td>Senior Javascript Developer</td>
-                        <td>Edinburgh</td>
-                        <td>22</td>
-                        <td>2012/03/29</td>
-                        <td>$433,060</td>
-                    </tr>
-                    <tr>
-                        <td>Airi Satou</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>33</td>
-                        <td>2008/11/28</td>
-                        <td>$162,700</td>
-                    </tr>
-                    <tr>
-                        <td>Brielle Williamson</td>
-                        <td>Integration Specialist</td>
-                        <td>New York</td>
-                        <td>61</td>
-                        <td>2012/12/02</td>
-                        <td>$372,000</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012/08/06</td>
-                        <td>$137,500</td>
-                    </tr>
-                    <tr>
-                        <td>Rhona Davidson</td>
-                        <td>Integration Specialist</td>
-                        <td>Tokyo</td>
-                        <td>55</td>
-                        <td>2010/10/14</td>
-                        <td>$327,900</td>
-                    </tr>
-                    <tr>
-                        <td>Colleen Hurst</td>
-                        <td>Javascript Developer</td>
-                        <td>San Francisco</td>
-                        <td>39</td>
-                        <td>2009/09/15</td>
-                        <td>$205,500</td>
-                    </tr>
-                    <tr>
-                        <td>Sonya Frost</td>
-                        <td>Software Engineer</td>
-                        <td>Edinburgh</td>
-                        <td>23</td>
-                        <td>2008/12/13</td>
-                        <td>$103,600</td>
-                    </tr>
-                    <tr>
-                        <td>Jena Gaines</td>
-                        <td>Office Manager</td>
-                        <td>London</td>
-                        <td>30</td>
-                        <td>2008/12/19</td>
-                        <td>$90,560</td>
-                    </tr>
-                    <tr>
-                        <td>Quinn Flynn</td>
-                        <td>Support Lead</td>
-                        <td>Edinburgh</td>
-                        <td>22</td>
-                        <td>2013/03/03</td>
-                        <td>$342,000</td>
-                    </tr>
-                    <tr>
-                        <td>Charde Marshall</td>
-                        <td>Regional Director</td>
-                        <td>San Francisco</td>
-                        <td>36</td>
-                        <td>2008/10/16</td>
-                        <td>$470,600</td>
-                    </tr>
-                    <tr>
-                        <td>Haley Kennedy</td>
-                        <td>Senior Marketing Designer</td>
-                        <td>London</td>
-                        <td>43</td>
-                        <td>2012/12/18</td>
-                        <td>$313,500</td>
-                    </tr>
-                    <tr>
-                        <td>Tatyana Fitzpatrick</td>
-                        <td>Regional Director</td>
-                        <td>London</td>
-                        <td>19</td>
-                        <td>2010/03/17</td>
-                        <td>$385,750</td>
-                    </tr>
-                    <tr>
-                        <td>Michael Silva</td>
-                        <td>Marketing Designer</td>
-                        <td>London</td>
-                        <td>66</td>
-                        <td>2012/11/27</td>
-                        <td>$198,500</td>
-                    </tr>
-                    <tr>
-                        <td>Paul Byrd</td>
-                        <td>Chief Financial Officer (CFO)</td>
-                        <td>New York</td>
-                        <td>64</td>
-                        <td>2010/06/09</td>
-                        <td>$725,000</td>
-                    </tr>
-                    <tr>
-                        <td>Gloria Little</td>
-                        <td>Systems Administrator</td>
-                        <td>New York</td>
-                        <td>59</td>
-                        <td>2009/04/10</td>
-                        <td>$237,500</td>
-                    </tr>
-                    <tr>
-                        <td>Bradley Greer</td>
-                        <td>Software Engineer</td>
-                        <td>London</td>
-                        <td>41</td>
-                        <td>2012/10/13</td>
-                        <td>$132,000</td>
-                    </tr>
-                    <tr>
-                        <td>Dai Rios</td>
-                        <td>Personnel Lead</td>
-                        <td>Edinburgh</td>
-                        <td>35</td>
-                        <td>2012/09/26</td>
-                        <td>$217,500</td>
-                    </tr>
-                    <tr>
-                        <td>Jenette Caldwell</td>
-                        <td>Development Lead</td>
-                        <td>New York</td>
-                        <td>30</td>
-                        <td>2011/09/03</td>
-                        <td>$345,000</td>
-                    </tr>
-                    <tr>
-                        <td>Yuri Berry</td>
-                        <td>Chief Marketing Officer (CMO)</td>
-                        <td>New York</td>
-                        <td>40</td>
-                        <td>2009/06/25</td>
-                        <td>$675,000</td>
-                    </tr>
-                    <tr>
-                        <td>Caesar Vance</td>
-                        <td>Pre-Sales Support</td>
-                        <td>New York</td>
-                        <td>21</td>
-                        <td>2011/12/12</td>
-                        <td>$106,450</td>
-                    </tr>
-                    <tr>
-                        <td>Doris Wilder</td>
-                        <td>Sales Assistant</td>
-                        <td>Sidney</td>
-                        <td>23</td>
-                        <td>2010/09/20</td>
-                        <td>$85,600</td>
-                    </tr>
-                    <tr>
-                        <td>Angelica Ramos</td>
-                        <td>Chief Executive Officer (CEO)</td>
-                        <td>London</td>
-                        <td>47</td>
-                        <td>2009/10/09</td>
-                        <td>$1,200,000</td>
-                    </tr>
-                    <tr>
-                        <td>Gavin Joyce</td>
-                        <td>Developer</td>
-                        <td>Edinburgh</td>
-                        <td>42</td>
-                        <td>2010/12/22</td>
-                        <td>$92,575</td>
-                    </tr>
-                    <tr>
-                        <td>Jennifer Chang</td>
-                        <td>Regional Director</td>
-                        <td>Singapore</td>
-                        <td>28</td>
-                        <td>2010/11/14</td>
-                        <td>$357,650</td>
-                    </tr>
-                    <tr>
-                        <td>Brenden Wagner</td>
-                        <td>Software Engineer</td>
-                        <td>San Francisco</td>
-                        <td>28</td>
-                        <td>2011/06/07</td>
-                        <td>$206,850</td>
-                    </tr>
-                    <tr>
-                        <td>Fiona Green</td>
-                        <td>Chief Operating Officer (COO)</td>
-                        <td>San Francisco</td>
-                        <td>48</td>
-                        <td>2010/03/11</td>
-                        <td>$850,000</td>
-                    </tr>
-                    <tr>
-                        <td>Shou Itou</td>
-                        <td>Regional Marketing</td>
-                        <td>Tokyo</td>
-                        <td>20</td>
-                        <td>2011/08/14</td>
-                        <td>$163,000</td>
-                    </tr>
-                    <tr>
-                        <td>Michelle House</td>
-                        <td>Integration Specialist</td>
-                        <td>Sidney</td>
-                        <td>37</td>
-                        <td>2011/06/02</td>
-                        <td>$95,400</td>
-                    </tr>
-                    <tr>
-                        <td>Suki Burks</td>
-                        <td>Developer</td>
-                        <td>London</td>
-                        <td>53</td>
-                        <td>2009/10/22</td>
-                        <td>$114,500</td>
-                    </tr>
-                    <tr>
-                        <td>Prescott Bartlett</td>
-                        <td>Technical Author</td>
-                        <td>London</td>
-                        <td>27</td>
-                        <td>2011/05/07</td>
-                        <td>$145,000</td>
-                    </tr>
-                    <tr>
-                        <td>Gavin Cortez</td>
-                        <td>Team Leader</td>
-                        <td>San Francisco</td>
-                        <td>22</td>
-                        <td>2008/10/26</td>
-                        <td>$235,500</td>
-                    </tr>
-                    <tr>
-                        <td>Martena Mccray</td>
-                        <td>Post-Sales support</td>
-                        <td>Edinburgh</td>
-                        <td>46</td>
-                        <td>2011/03/09</td>
-                        <td>$324,050</td>
-                    </tr>
-                    <tr>
-                        <td>Unity Butler</td>
-                        <td>Marketing Designer</td>
-                        <td>San Francisco</td>
-                        <td>47</td>
-                        <td>2009/12/09</td>
-                        <td>$85,675</td>
-                    </tr>
-                    <tr>
-                        <td>Howard Hatfield</td>
-                        <td>Office Manager</td>
-                        <td>San Francisco</td>
-                        <td>51</td>
-                        <td>2008/12/16</td>
-                        <td>$164,500</td>
-                    </tr>
-                    <tr>
-                        <td>Hope Fuentes</td>
-                        <td>Secretary</td>
-                        <td>San Francisco</td>
-                        <td>41</td>
-                        <td>2010/02/12</td>
-                        <td>$109,850</td>
-                    </tr>
-                    <tr>
-                        <td>Vivian Harrell</td>
-                        <td>Financial Controller</td>
-                        <td>San Francisco</td>
-                        <td>62</td>
-                        <td>2009/02/14</td>
-                        <td>$452,500</td>
-                    </tr>
-                    <tr>
-                        <td>Timothy Mooney</td>
-                        <td>Office Manager</td>
-                        <td>London</td>
-                        <td>37</td>
-                        <td>2008/12/11</td>
-                        <td>$136,200</td>
-                    </tr>
-                    <tr>
-                        <td>Jackson Bradshaw</td>
-                        <td>Director</td>
-                        <td>New York</td>
-                        <td>65</td>
-                        <td>2008/09/26</td>
-                        <td>$645,750</td>
-                    </tr>
-                    <tr>
-                        <td>Olivia Liang</td>
-                        <td>Support Engineer</td>
-                        <td>Singapore</td>
-                        <td>64</td>
-                        <td>2011/02/03</td>
-                        <td>$234,500</td>
-                    </tr>
-                    <tr>
-                        <td>Bruno Nash</td>
-                        <td>Software Engineer</td>
-                        <td>London</td>
-                        <td>38</td>
-                        <td>2011/05/03</td>
-                        <td>$163,500</td>
-                    </tr>
-                    <tr>
-                        <td>Sakura Yamamoto</td>
-                        <td>Support Engineer</td>
-                        <td>Tokyo</td>
-                        <td>37</td>
-                        <td>2009/08/19</td>
-                        <td>$139,575</td>
-                    </tr>
-                    <tr>
-                        <td>Thor Walton</td>
-                        <td>Developer</td>
-                        <td>New York</td>
-                        <td>61</td>
-                        <td>2013/08/11</td>
-                        <td>$98,540</td>
-                    </tr>
-                    <tr>
-                        <td>Finn Camacho</td>
-                        <td>Support Engineer</td>
-                        <td>San Francisco</td>
-                        <td>47</td>
-                        <td>2009/07/07</td>
-                        <td>$87,500</td>
-                    </tr>
-                    <tr>
-                        <td>Serge Baldwin</td>
-                        <td>Data Coordinator</td>
-                        <td>Singapore</td>
-                        <td>64</td>
-                        <td>2012/04/09</td>
-                        <td>$138,575</td>
-                    </tr>
-                    <tr>
-                        <td>Zenaida Frank</td>
-                        <td>Software Engineer</td>
-                        <td>New York</td>
-                        <td>63</td>
-                        <td>2010/01/04</td>
-                        <td>$125,250</td>
-                    </tr>
-                    <tr>
-                        <td>Zorita Serrano</td>
-                        <td>Software Engineer</td>
-                        <td>San Francisco</td>
-                        <td>56</td>
-                        <td>2012/06/01</td>
-                        <td>$115,000</td>
-                    </tr>
-                    <tr>
-                        <td>Jennifer Acosta</td>
-                        <td>Junior Javascript Developer</td>
-                        <td>Edinburgh</td>
-                        <td>43</td>
-                        <td>2013/02/01</td>
-                        <td>$75,650</td>
-                    </tr>
-                    <tr>
-                        <td>Cara Stevens</td>
-                        <td>Sales Assistant</td>
-                        <td>New York</td>
-                        <td>46</td>
-                        <td>2011/12/06</td>
-                        <td>$145,600</td>
-                    </tr>
-                    <tr>
-                        <td>Hermione Butler</td>
-                        <td>Regional Director</td>
-                        <td>London</td>
-                        <td>47</td>
-                        <td>2011/03/21</td>
-                        <td>$356,250</td>
-                    </tr>
-                    <tr>
-                        <td>Lael Greer</td>
-                        <td>Systems Administrator</td>
-                        <td>London</td>
-                        <td>21</td>
-                        <td>2009/02/27</td>
-                        <td>$103,500</td>
-                    </tr>
-                    <tr>
-                        <td>Jonas Alexander</td>
-                        <td>Developer</td>
-                        <td>San Francisco</td>
-                        <td>30</td>
-                        <td>2010/07/14</td>
-                        <td>$86,500</td>
-                    </tr>
-                    <tr>
-                        <td>Shad Decker</td>
-                        <td>Regional Director</td>
-                        <td>Edinburgh</td>
-                        <td>51</td>
-                        <td>2008/11/13</td>
-                        <td>$183,000</td>
-                    </tr>
-                    <tr>
-                        <td>Michael Bruce</td>
-                        <td>Javascript Developer</td>
-                        <td>Singapore</td>
-                        <td>29</td>
-                        <td>2011/06/27</td>
-                        <td>$183,000</td>
-                    </tr>
-                    <tr>
-                        <td>Donna Snider</td>
-                        <td>Customer Support</td>
-                        <td>New York</td>
-                        <td>27</td>
-                        <td>2011/01/25</td>
-                        <td>$112,000</td>
-                    </tr>
-                </tbody>
-            </table>
+            <table id="table" class="hover nowrap" width="100%"></table>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;table id="table" class="hover nowrap" width="100%"&gt;&lt;/table&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#table').dataTable({
+    searching: false,
+    lengthChange: false,
+    info: false,
+    scrollX: true,
+    ajax: 'data/datatable.json',
+    columns: [
+        {
+            data:'name',
+            title:'Name',
+            className: 'dt-head-left'
+        },
+        {
+            data:'position',
+            title:'Position',
+            className: 'dt-head-left'
+        },
+        {
+            data:'office',
+            title:'Office',
+            className: 'dt-head-left'
+        },
+        {
+            data:'extn',
+            title:'Extn.',
+            className: 'dt-head-right dt-body-right'
+        },
+        {
+            data:'start_date',
+            title:'Start date',
+            className: 'dt-head-right dt-body-right'
+        },
+        {
+            data:'salary',
+            title:'Salary',
+            className: 'dt-head-right dt-body-right'
+        }
+    ],
+    language: {
+        paginate: {
+            previous: '',
+            next: ''
+        }
+    }
+});</pre>
+        </div>
+        <h2 id="datatableSelect">Select插件</h2>
+        <p>
+            DataTables有许多增强现有功能的插件，Select是比较常用的一个，请参考：
+            <a target="_blank" href="https://datatables.net/extensions/select/">https://datatables.net/extensions/select/</a>。Select插件有三种选择模式：
+            <code>os（默认）</code>，
+            <code>single</code>，
+            <code>multi</code>。
+        </p>
+        <div class="example">
+            <table id="table1" class="hover nowrap" width="100%"></table>
+        </div>
+        <div class="code no-border-radius html">
+            <pre class="prettyprint">
+&lt;table id="table1" class="hover nowrap" width="100%"&gt;&lt;/table&gt;</pre>
+        </div>
+        <div class="code js">
+            <pre class="prettyprint">
+$('#table').dataTable({
+    searching: false,
+    lengthChange: false,
+    info: false,
+    paging: false,
+    scrollX: true,
+    scrollY: 400,
+    ajax: 'data/datatable.json',
+    columns: [
+        {
+            data:'name',
+            title:'Name',
+            className: 'dt-head-left'
+        },
+        {
+            data:'position',
+            title:'Position',
+            className: 'dt-head-left'
+        },
+        {
+            data:'office',
+            title:'Office',
+            className: 'dt-head-left'
+        },
+        {
+            data:'extn',
+            title:'Extn.',
+            className: 'dt-head-right dt-body-right'
+        },
+        {
+            data:'start_date',
+            title:'Start date',
+            className: 'dt-head-right dt-body-right'
+        },
+        {
+            data:'salary',
+            title:'Salary',
+            className: 'dt-head-right dt-body-right'
+        }
+    ],
+    language: {
+        paginate: {
+            previous: '',
+            next: ''
+        }
+    }
+});</pre>
         </div>
     </main>
 </body>

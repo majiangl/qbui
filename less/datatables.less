@@ -35,14 +35,21 @@
     background-color: @datatable-row-hover-bg;
 }
 
+.dataTable tbody tr.selected,
+.dataTable tbody tr.selected:hover, {
+    background-color: @datatable-row-selected-bg;
+}
 
 .dataTable thead .sorting,
 .dataTable thead .sorting_asc,
 .dataTable thead .sorting_desc {
     cursor: pointer;
+}
+
+.dataTable thead .sorting_asc,
+.dataTable thead .sorting_desc {
     &::after {
         content: '';
-        vertical-align: middle;
         margin-bottom: 2px;
         margin-left: 4px;
     }
@@ -80,6 +87,7 @@
 
 .dataTables_wrapper .dataTables_scroll {
     clear: both;
+    background-color: @datatable-head-row-bg;
 }
 
 .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {

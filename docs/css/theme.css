@@ -29,3 +29,7 @@ body {
     cursor: move;
     height: 30px;
 }
+
+.chart-container {
+    width: 800px;
+}

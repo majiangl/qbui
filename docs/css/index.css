@@ -41,8 +41,8 @@ a.catalog-title {
 
 main {
     margin-left: 260px;
-    width: 600px;
-    padding-bottom: 500px;
+    margin-bottom: 50px;
+    width: 620px;
     overflow: hidden;
 }
 
@@ -60,7 +60,7 @@ code {
     color: #fff;
     border-radius: 4px;
     padding: 2px 4px;
-    font-size: 80%;
+    font-size: 90%;
 }
 
 .example {
@@ -125,7 +125,9 @@ code {
     margin: 5px 30px 5px 0;
 }
 
-#checkGroup label {
+#checkGroup label,
+#checkGroup1 label,
+#checkGroup2 label {
     width: 62px;
 }
 
@@ -143,4 +145,17 @@ code {
     padding: 4px 10px;
     cursor: move;
     height: 30px;
+}
+
+#chosen1Btn1,
+#chosen1Btn2 {
+    vertical-align: middle;
+}
+
+#tabGroup1 {
+    margin-bottom: 10px;
+}
+
+.tooltip-delegate {
+    margin-right: 20px;
 }
