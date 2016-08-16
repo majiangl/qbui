@@ -2,7 +2,7 @@ Highcharts.theme = {
     chart: {
         backgroundColor: '#161819',
         plotBorderColor: '#383a3b',
-        plotBorderWidth: 1
+        spacing: [10,10,10,10]
     },
     colors: ['#ffc96c','#dc4444','#48764f','#58b96d','#b26ed0','#ce6432',
             '#7adc4e','#25ba93','#f04971','#fbff1e'],
@@ -22,16 +22,37 @@ Highcharts.theme = {
     legend: {
         itemStyle: {
             color: '#ffebc8'
+        },
+        itemHoverStyle: {
+            color: '#f9c66e'
+        },
+        itemHiddenStyle: {
+            color: '#7b8082'
+        }
+    },
+    tooltip: {
+        borderColor: '#000',
+        backgroundColor: '#34393c',
+        style: {
+            color: '#ffebc8'
         }
     },
     plotOptions: {
-        line: {
-            marker: {
-                lineColor: '#000',
-                states: {
-                    hover: {
-                        lineColor: '#000'
-                    }
+        column: {
+            borderWidth: 0,
+            borderColor: '#161819',
+            dataLabels: {
+                color: '#ffebc8'
+            }
+        },
+        pie: {
+            allowPointSelect: true,
+            borderColor: '#161819',
+            showInLegend: true,
+            dataLabels: {
+                enabled: false,
+                style: {
+                    color: '#ffebc8'
                 }
             }
         },
@@ -40,13 +61,24 @@ Highcharts.theme = {
             lineColor: '#78E54E',
             upColor: 'transparent',
             upLineColor: '#C1242C'
+        },
+        series: {
+            marker: {
+                lineColor: '#000',
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineColor: '#000'
+                    }
+                }
+            }
         }
     },
     style: {
         fontFamily: '"Lucida Grande", "Lucida Sans Unicode", Verdana, Helvetica, "Microsoft Yahei", sans-serif'
     },
     title: {
-        //text: null,
+        text: null,
         style: {
             color: '#ffebc8'
         }
@@ -54,6 +86,9 @@ Highcharts.theme = {
     xAxis: {
         gridLineColor: '#383a3b',
         gridLineWidth: 1,
+        endOnTick: true,
+        minPadding: 0,
+        maxPadding: 0,
         labels: {
             style: {
                 color: '#7b8082'
